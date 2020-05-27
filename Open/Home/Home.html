@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Colorfull</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+            margin-top: 4%;
+        }
+
+        #logo {
+            height: 35%;
+        }
+
+        #slogen {
+            font-family: 'M008016d';
+            font-size: 250%;
+            position: absolute;
+            bottom: 54%;
+            right: 40%;
+        }
+
+        #base {
+            height: 20%;
+            width: 100%;
+            position: absolute;
+            bottom: 21%;
+        }
+
+        #about {
+            left: 9%;
+        }
+
+        #like {
+            right: 9%;
+        }
+
+        .icons img {
+            height: 70%;
+        }
+
+        .icons {
+            height: 83%;
+            width: 20%;
+            background-color: #fff;
+            display: inline-block;
+            padding-top: 1%;
+            position: relative;
+            border-radius: 15px;
+            transition: ease .6s;
+        }
+
+        #about img {
+            height: 62%;
+        }
+
+        #like img {
+            height: 62%;
+        }
+
+        .text {
+            color: #fff;
+            font-family: 'M008016d';
+            display: block;
+            font-size: 180%;
+            position: relative;
+            top: 8%;
+        }
+
+        /*switch*/
+        #card1, #card2, #card3 {
+            perspective: 150rem;
+            -moz-perspective: 150rem;
+            position: relative;
+            margin-right: 2%;
+            margin-left: 2%;
+            top: 12%;
+            height: 7rem;
+            width: 8%;
+            transition: all ease-in-out 400ms;
+            cursor: pointer;
+        }
+
+        .card__side {
+            font-family: M008016d;
+            transition: all .8s ease;
+            color: white;
+            font-size: 2rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 8.5rem;
+            width: 107%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+        }
+
+        #back-1 {
+            background-color: rgb(247, 215, 60);
+        }
+
+            #back-1 input {
+                background-color: rgb(247, 226, 124);
+            }
+
+        #back-2 {
+            background-color: rgb(39, 141, 255);
+        }
+
+        #back-3 {
+            background-color: rgb(255, 39, 94);
+        }
+
+            #back-3 input {
+                background-color: rgb(251, 91, 132);
+            }
+
+        .card__side--front {
+            position: relative;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #f7f7f7;
+            padding-top: 15%;
+        }
+
+        .card__side--back {
+            background-color: #2e2e2e;
+            transform: rotateY(180deg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 15%;
+        }
+
+        .showGreen {
+            transform: rotateY(-180deg);
+        }
+
+        .showRed {
+            transform: rotateY(0);
+        }
+
+        .heading {
+            transition: all 0.6s linear;
+        }
+
+        .ikon {
+            height: 70%;
+        }
+
+        .cards {
+            display: inline-block;
+        }
+
+        input[type="button"] {
+            display: block;
+            position: absolute;
+            right: 64%;
+            bottom: 10%;
+            background-color: #4f9ff9;
+            border: none;
+            height: 25%;
+            width: 25%;
+            font-size: 70%;
+            color: #fffdfd;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <img src="images/logo.png" id="logo" />
+    <br />
+    <label id="slogen">The life is not black and white</label>
+    <br />
+    <div id="base"></div>
+    <script>
+        var icons = ["icons/about.png", "icons/game.png", "icons/like.png"];
+        var colors = ["rgb(247, 215, 60)", "rgb(39, 141, 255)", "rgb(255, 39, 94)"];
+        var names = ["about", "game", "like"];
+        var locations = ["about-us.html", "Games.html", "like.html"];
+    </script>
+    <script>
+        var ikon = ["icons/about.png", "icons/game.png", "icons/like.png"];
+        var text = ["about us", "games", "like"];
+        var locations = ["about-us.html", "Games.html", "like.html"];
+        var flag = 0;
+        function createCards() {
+            for (var i = 1; i < 4; i++) {
+                var div = document.createElement("div");
+                div.className = "cards";
+                div.id = "card" + i;
+                div.setAttribute("data-name", names[i - 1]);
+                div.setAttribute("data-number", i);
+
+                var child = document.createElement("div");
+                child.className = "card";
+                div.appendChild(child);
+
+                var front = document.createElement("div");
+                front.className = "card__side card__side--front";
+                front.id = "front-" + i;
+                child.appendChild(front);
+
+                var img = document.createElement("img");
+                img.src = ikon[i - 1];
+                img.className = "ikon";
+                img.id = names[i - 1] + "Img";
+                front.appendChild(img);
+
+                var back = document.createElement("div");
+                back.className = "card__side card__side--back";
+                back.id = "back-" + i;
+                child.appendChild(back);
+
+                var label = document.createElement("label");
+                label.innerHTML = text[i - 1];
+                back.appendChild(label);
+
+                var button = document.createElement("input");
+                button.type = "button";
+                button.value = ">";
+                button.setAttribute("data-number", i)
+                button.onclick = links;
+                back.appendChild(button);
+
+                document.getElementById("base").appendChild(div);
+            }
+        }
+        var flag = [0, 0, 0];
+        function rotateCards() {
+            if (flag[event.currentTarget.getAttribute("data-number")] == 0) {
+                document.getElementById('front-' + event.currentTarget.getAttribute("data-number")).classList.add('showGreen');
+                document.getElementById('back-' + event.currentTarget.getAttribute("data-number")).classList.add('showRed');
+                flag[event.currentTarget.getAttribute("data-number")] = 1;
+            }
+            else {
+                document.getElementById('front-' + event.currentTarget.getAttribute("data-number")).classList.remove('showGreen');
+                document.getElementById('back-' + event.currentTarget.getAttribute("data-number")).classList.remove('showRed');
+                flag[event.currentTarget.getAttribute("data-number")] = 0;
+            }
+        }
+
+        function switchCard() {
+            
+        }
+
+        function paint(event) {
+            name = event.currentTarget.getAttribute("data-name");
+            document.getElementById(name + "Img").src = "icons/" + name + "White.png";
+            document.getElementById(name + "Img").style.height = "55%";
+            document.getElementById('front-' + event.currentTarget.getAttribute("data-number")).style.backgroundColor = colors[event.currentTarget.getAttribute("data-number") - 1];
+        }
+
+        function clear(event) {
+            name = event.currentTarget.getAttribute("data-name");
+            document.getElementById(name + "Img").src = "icons/" + name + ".png";
+            document.getElementById(name + "Img").style.height = "70%";
+            document.getElementById('front-' + event.currentTarget.getAttribute("data-number")).style.backgroundColor = "#fff";
+        }
+
+        createCards();
+
+        for (var i = 1; i < 4; i++) {
+            document.getElementById("card" + i).onclick = rotateCards;
+            document.getElementById("card" + i).onmouseenter = paint;
+            document.getElementById("card" + i).onmouseleave = clear;
+        }
+
+        function links() {
+            window.location = locations[event.currentTarget.getAttribute("data-number") - 1];
+        }
+    </script>
+
+</body>
+</html>

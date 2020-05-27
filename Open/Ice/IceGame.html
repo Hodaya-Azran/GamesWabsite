@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ice</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: padding-box;
+            overflow:hidden;
+        }
+
+        html, body {
+            height: 98%;
+            width: 100%;
+        }
+        /*images/back2.jpg*/
+        #base {
+            height: 104%;
+            width: 100%;
+            background-image: url("imagesGame/iceBack3.jpg");
+            background-size: cover;
+            opacity: 0.8;
+            position: relative;
+            bottom: 1.2%;
+        }
+
+    #board {
+    height: 92%;
+    width: 48%;
+    position: relative;
+    right: 25%;
+    bottom: 99%;
+}
+
+        .places {
+            height: 9.1%;
+            width: 9.7%;
+            background-image: none;
+            background-size: cover;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: solid;
+            border-width: 1px;
+            display: inline-block;
+        }
+
+            .places img {
+                height: 95%;
+                position: relative;
+                right: 12%;
+                transition: ease;
+            }
+
+        /*נגמר המשחק*/
+        #options {
+            height: 40%;
+            width: 50%;
+            position: relative;
+            right: 25%;
+            bottom: 90%;
+            background-color: rgba(255, 255, 255, 0.45);
+            border: solid;
+            border-width: 1px;
+            text-align: center;
+            padding-top: 5%;
+            display: none;
+        }
+
+        .op {
+    height: 21%;
+    width: 21%;
+    position: relative;
+    top: 20%;
+    display: inline-block;
+    font-family: M008016d;
+    font-size: 253%;
+    padding-top: 1%;
+    border-radius: 50px;
+    border: solid;
+}
+
+        #again {
+            border-color: #ffcb33;
+            color: #ffcb33;
+            left: 1%;
+        }
+
+        #exit {
+            border-color: #ff6392;
+            color: #ff6392;
+            right: 1%;
+        }
+
+        #comment {
+            font-size: 200%;
+        }
+
+        #ice {
+            width: 80%;
+            position: absolute;
+            right: 7%;
+            top: 30%;
+        }
+
+        #bear, #dov {
+            height: 70%;
+            position:relative;
+            top: 20%;
+        }
+
+        #minutes {
+            font-family: M008016d;
+            font-size: 200%;
+        }
+
+        #continue {
+            font-size: 200%;
+            display: none;
+        }
+
+        #time {
+            position: absolute;
+            left: 10%;
+            top: 20%;
+            font-size: 300%;
+            font-family: impact;
+            color: red;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <label id="time">
+            <label class="stoper" id="mili">0</label> :
+            <label class="stoper" id="second">0</label> :
+            <label class="stoper" id="minute">0</label>
+        </label>
+    </div>
+    <div id="board"></div>
+    <div id="options">
+        <label id="comment">חבל, נסה שוב!</label>
+        <label id="minutes"></label>
+        <label id="continue"> שניות</label>
+        <br />
+    </div>
+    <script src="../script/jquery-1.9.1.min.js"></script>
+    <script>
+        var pingvin = "imagesGame/img34.PNG";
+        var bear = "imagesGame/distributions-puppy_linux.png";
+        var color = "rgba(255, 233, 168, 0.94)";
+        var blocks = [];
+        var block = "imagesGame/2.png";
+        var placeY = [];
+        var left = 37;
+        var top1 = 38;
+        var right = 39;
+        var bottom = 40;
+        var x = 44;
+        var placeX = [44];
+        var colored = [44];
+        var delay;
+        var flag = 0;
+        var placing = 0;
+        var run = [1, -1, 10, -10, -10, 1];
+        var setCount;
+        var dov;
+        var cellCount = 0;
+        var counter = 0;
+        var options = ["again", "exit"];
+
+        function createCard() {
+            for (var i = 0; i < 10; i++) {
+                for (var j = 0; j < 10; j++) {
+                    var div = document.createElement("div");
+                    if (i != 0) {
+                        div.id = "place" + i + j;
+                    }
+                    else {
+                        div.id = "place" + j;
+                    }
+                    div.className = "places";
+                    div.setAttribute("data-Possible", "yes");
+                    document.getElementById("board").appendChild(div);
+                    if (i == 4 && j == 4) {
+                        var img = document.createElement("img");
+                        img.id = "pingvin";
+                        img.src = pingvin;
+                        document.getElementById("place44").style.backgroundColor = color;
+                        document.getElementById("place44").appendChild(img);
+                    }
+                }
+                document.getElementById("board").appendChild(document.createElement("br"));
+            }
+        }
+
+        function randomBlocks() {
+            for (var i = 0; i < 10; i++) {
+                do {
+                    var number = Math.round(Math.random() * 100) % 100;
+                } while (blocks.indexOf(number) > -1 || number == 44);
+                blocks.push(number);
+                document.getElementById("place" + number).style.backgroundColor = "none";
+                document.getElementById("place" + number).style.backgroundImage = "url(" + block + ")";
+                document.getElementById("place" + number).setAttribute("data-Possible", "no");
+            }
+            do {
+                var start = Math.round(Math.random() * 100) % 99;
+            } while (blocks.indexOf(start) > -1 || start == 44);
+            do {
+                var start = Math.round(Math.random() * 100) % 99;
+            } while (blocks.indexOf(start) > -1 || start == 44);
+            placeY.push(start);
+            placeY.push(start);
+            var img = document.createElement("img");
+            img.id = "bear";
+            img.src = bear;
+            document.getElementById("place" + start).appendChild(img);
+            document.getElementById("place" + start).appendChild(img);
+            dov = document.createElement("img");
+            dov.src = "imagesGame/‏‏distributions-puppy_linux - עותק.png";
+            dov.id = "dov";
+        }
+
+        function press_() {
+            if (event.keyCode == left) {
+                if ((x + 1) % 10 != 0 && document.getElementById("place" + (x + 1)).getAttribute("data-possible") == "yes") {
+                    x += 1;
+                    document.getElementById("place" + x).style.backgroundColor = color;
+                    document.getElementById("place" + x).appendChild(document.getElementById("pingvin"));
+                    placeX.push(x);
+                    if (colored.indexOf(x) < 0) {
+                        colored.push(x);
+                    }
+                }
+            }
+            else if (event.keyCode == top1) {
+                if (document.getElementById("place" + (x - 10)).getAttribute("data-possible") == "yes") {
+                    document.getElementById("pingvin").style.animationName = "TopStep";
+                    x -= 10;
+                    document.getElementById("place" + x).style.backgroundColor = color;
+                    document.getElementById("place" + x).appendChild(document.getElementById("pingvin"));
+                    placeX.push(x);
+                    if (colored.indexOf(x) < 0) {
+                        colored.push(x);
+                    }
+                }
+            }
+            if (event.keyCode == right) {
+                if (x % 10 != 0 && document.getElementById("place" + (x - 1)).getAttribute("data-possible") == "yes") {
+                    x -= 1;
+                    document.getElementById("place" + x).style.backgroundColor = color;
+                    document.getElementById("place" + x).appendChild(document.getElementById("pingvin"));
+                    placeX.push(x);
+                    if (colored.indexOf(x) < 0) {
+                        colored.push(x);
+                    }
+                }
+            }
+            else if (event.keyCode == bottom) {
+                if (document.getElementById("place" + (x + 10)).getAttribute("data-possible") == "yes") {
+                    x += 10;
+                    document.getElementById("place" + x).style.backgroundColor = color;
+                    document.getElementById("place" + x).appendChild(document.getElementById("pingvin"));
+                    placeX.push(x);
+                    if (colored.indexOf(x) < 0) {
+                        colored.push(x);
+                    }
+                }
+            }
+            if (colored.length + blocks.length == 100) {
+                flag = 1;
+                document.getElementById("comment").innerHTML = "וואו! עשית את זה ב- ";
+                document.getElementById("continue").style.display = "inline-block";
+                clearInterval(toRun);
+                delay = setInterval(finally_, 500);
+            }
+            if (placeY[placeY.length - 1] == placeX[placeX.length - 1]) {
+                clearInterval(toRun);
+                delay = setInterval(finally_, 500);
+            }
+        }
+
+        function running() {
+            do {
+                var rand = Math.round(Math.random() * 100) % 6;
+            } while (document.getElementById("place" + (placeY[placeY.length - 1] + run[rand])).getAttribute("data-possible") == "no" || (placeY[placeY.length - 1] + run[rand]) > 99 || (placeY[placeY.length - 1] + run[rand]) < 0 || ((placeY[placeY.length - 1] + 1) % 10 == 0 && rand == 0) || ((placeY[placeY.length - 1] + 1) % 10 && rand == 1));
+            document.getElementById("place" + (placeY[placeY.length - 1] + run[rand])).appendChild(document.getElementById("bear"));
+            placeY.push(placeY[placeY.length - 1] + run[rand]);
+            if (placeY[placeY.length - 1] == placeX[placeX.length - 1]) {
+                clearInterval(toRun);
+                delay = setInterval(finally_, 500);
+            }
+            if (placeY[placeY.length - 1] < 50) {
+                run[run.length - 2] = 10;
+            }
+            else if (placeY[placeY.length - 1] >= 50) {
+                run[run.length - 2] = -10;
+            }
+            if (placeY[placeY.length - 1] % 10 < 5) {
+                run[run.length - 1] = 1;
+            }
+            else if (placeY[placeY.length - 1] % 10 >= 5) {
+                run[run.length - 1] = -1;
+            }
+        }
+        
+        function cellRun() {
+
+            if (placeX.length > cellCount) {
+                var flag = 1;
+                var child = $("#place" + placeX[cellCount]).find("#pingvin");
+                //var child = document.getElementById("place" + placesX[cellCount]).getElementById("");
+                if (child.length > 0) {//כאשר מפסיד
+                    flag = 0;
+                    finally_();
+                }
+                document.getElementById("place" + placeX[cellCount]).appendChild(dov);
+                cellCount++;
+                if (flag)
+                    setTimeout(cellRun, 300);
+                else {
+                    on();
+                }
+            }
+        }
+
+        function on() {
+            setTimeout(cellRun, 100);
+        }
+        //נגמר המשחק
+        function finally_() {
+            clearInterval(setCount);
+            clearInterval(setCount1);
+            clearInterval(setCount2);
+            document.getElementById("board").style.display = "none";
+            document.getElementById("options").style.display = "block";
+            clearInterval(delay);
+            if (flag == 1) {
+                document.getElementById("minutes").innerHTML = counter2 * 60 + counter + "." + counter1;
+            }
+        }
+
+        function createOptions() {
+            for (var i = 0; i < options.length; i++) {
+                var div = document.createElement("div");
+                div.id = options[i];
+                div.className = "op";
+                div.value = options[i];
+                if (options[i] == "again") {
+                    div.onclick = clickAgain;
+                }
+                else if (options[i] == "exit") {
+                    div.onclick = clickExit;
+                }
+                div.innerHTML = options[i];
+                div.onmousemove = move;
+                div.onmouseleave = leave;
+                document.getElementById("options").appendChild(div);
+            }
+        }
+
+        function move() {
+            if (event.currentTarget.id == "again") {
+                event.currentTarget.style.backgroundColor = "#ffcb33";
+            }
+            else {
+                event.currentTarget.style.backgroundColor = "#ff6392";
+            }
+            event.currentTarget.style.color = "#fff";
+            event.currentTarget.style.borderColor = "#fff";
+        }
+
+        function leave() {
+            if (event.currentTarget.id == "again") {
+                event.currentTarget.style.color = "#ffcb33";
+                event.currentTarget.style.borderColor = "#ffcb33";
+            }
+            else {
+                event.currentTarget.style.color = "#ff6392";
+                event.currentTarget.style.borderColor = "#ff6392";
+            }
+            event.currentTarget.style.backgroundColor = "#fff";
+        }
+
+        function clickAgain() {
+            window.location = "IceGame.html";
+        }
+
+        function clickExit() {
+            window.location = "../Home/Games.html";
+        }
+       
+        function counterTime() {
+            counter++;
+        }
+
+        createCard();
+        randomBlocks();
+        document.onkeydown = press_;
+       var toRun = setInterval(running, 500);
+        setTimeout(on, 2000);
+        var counter = 0;
+        var counter1 = 0;
+        var counter2 = 0;
+        var setCount;
+
+        function counterTime() {//שניה
+            counter++;
+            document.getElementById("second").innerHTML = counter;
+            counter1 = 0;
+        }
+
+        function counterMili() {//אלפית שניה
+            counter1++;
+            document.getElementById("mili").innerHTML = counter1;
+        }
+
+        function counterMin() {//דקה
+            counter2++;
+            document.getElementById("minute").innerHTML = counter2;
+            counter = 0;
+            counter1 = 0;
+        }
+
+        createOptions();
+        setCount = setInterval(counterTime, 1000);
+        setCount1 = setInterval(counterMili, 10);
+        setCount2 = setInterval(counterMin, 60000);
+    </script>
+</body>
+</html>

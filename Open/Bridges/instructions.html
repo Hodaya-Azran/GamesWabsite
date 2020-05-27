@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bridges</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            background-color: #000 !important;
+            background-image: url("כתמים.jpg");
+            background-size: contain;
+        }
+
+        #base {
+            height: 75%;
+            width: 60%;
+            position: relative;
+            top: 2.5%;
+            right: 20%;
+            text-align: center;
+        }
+
+        #options {
+            height: 35%;
+            width: 100%;
+            margin-top: 3%;
+        }
+
+        #options  div {
+            height: 100%;
+            width: 25%;
+            display: inline-block;
+            border-left: solid;
+            text-align: center;
+            padding: 3%;
+            border-color: #000;
+            border-width: 1px;
+            font-size: 150%;
+            background-color: rgba(255, 255, 255, 0.28);
+        }
+
+        img {
+            height: 60%;
+            border: none;
+            opacity: 0.3;
+        }
+
+        #options label {
+            position: relative;
+            top: 10%;
+            color: #FFF176;
+        }
+
+        #contact {
+            height: 53%;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.70);
+            position: relative;
+            top: 11%;
+            font-size: 126%;
+            padding: 10%;
+            text-align: right;
+        }
+
+            #contact img {
+                position: relative;
+                bottom: 134.952%;
+                right: -4%;
+                height: 46%;
+                opacity: 0.7;
+            }
+
+            #title {
+            font-size: 120%;
+            color: #FFEB3B;
+            margin: 2%;
+            text-shadow: 0px 0px 11px #fff;
+        }
+
+        #contant_ {
+            font-size: 100%;
+        }
+
+        #matter {
+            font-family: 'M008016d';
+            color: #FFEB3B;
+            font-size: 300%;
+        }
+
+        input[type="button"] {
+            position: relative;
+            top: 1vw;
+            height: 46%;
+            width: 19%;
+            font-size: 90%;
+            background-color: rgba(98, 98, 98, 0.18);
+            border: none;
+            border-radius: 35px;
+            float: left;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <label id="matter">Bridges - instructions</label>
+        <div id="options"></div>
+        <div id="contact">
+            <img src="images/משולש.png" id="pointer"/>
+            <label id="title">יעד</label>
+            <br />
+            <br />
+            <label id="contant_">לחבר כל שני עיגולים בצבע תואם
+                <br />
+                בכמה שפחות צעדים
+            </label>
+            <input type="button" value="הבנתי" id="exit"/>
+        </div>
+    </div>
+    <script>
+        var ikon_s = ["ikons/771600.png", "ikons/149367.png", "ikons/263074.png", "ikons/865140.png"];
+        var li_s = ["יעד", "כללי המשחק", "איך משחקים?", "שימו לב"];
+        var li_sId = ["destination", "rules", "play", "attention"];
+        var li_contant = ["לחבר כל שני עיגולים בצבע תואם", "1. אסור לחצות קו של צבע אחר ",
+            "מושכים צבע מסוים ומובילים אותו לעיגול התואם לו", "קו שלא הגיע ליעדו - הגיע לצבע לא תואם או התנגש עם קו אחר - נמחק"];
+        var continue_ = ["בכמה שפחות צעדים", "2. בסוף המשחק כל הלוח צריך להיות מלא ללא משבצות ריקות", "כדי לבטל קו קיים יש ללחוץ על אחד משני העיגולים",
+            "כאשר אתם מחברים צבע מסוים שימו לב שאתם לא חוסמים צבע אחר"];
+        var rightPointer = ["-4%", "27%", "59%", "89%"];
+
+        function createOptions() {
+            for (var i = 0; i < li_s.length; i++) {
+                var div = document.createElement("div");
+                div.classList.add("option_s");
+                div.id = li_sId[i];
+                div.onmouseenter = Enter;
+                div.onmouseleave = Leave;
+                var img = document.createElement("img");
+                img.src = ikon_s[i];
+                div.appendChild(img);
+                div.appendChild(document.createElement("br"));
+                var label = document.createElement("label");
+                label.innerHTML = li_s[i];
+                div.appendChild(label);
+                document.getElementById("options").appendChild(div);
+            }
+        }
+        
+        function Enter() {
+            event.target.style.backgroundColor = "rgba(255, 255, 255, 0.57)";
+            event.target.style.borderBottom = "solid";
+            event.target.style.borderBottomColor = "#FFEB3B";
+            placeId = li_sId.indexOf(event.target.id);
+            document.getElementById("title").innerHTML = li_s[placeId];
+            document.getElementById("contant_").innerHTML = li_contant[placeId];
+            document.getElementById("contant_").appendChild(document.createElement("br"));
+            document.getElementById("contant_").innerHTML += continue_[placeId];
+            document.getElementById("pointer").style.right = rightPointer[placeId];
+        }
+
+        function Leave() {
+            event.target.style.backgroundColor = "rgba(255, 255, 255, 0.28)";
+            event.target.style.borderBottom = "none";
+        }
+
+       
+        function Exit() {
+            window.location = "menu.html";
+        }
+
+        createOptions();
+
+        document.getElementById("exit").onclick = Exit;
+
+    </script>
+</body>
+</html>

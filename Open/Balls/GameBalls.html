@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Catch the Balls</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            background-size: contain;
+            transition: all .8s ease;
+            position: absolute;
+            top: -0.55%;
+        }
+
+        html {
+            background-image: url("images/פרקט-לבן-1.jpg");
+        }
+
+        #base {
+            height: 3%;
+            width: 10%;
+            background-color: #E91E63;
+            position: absolute;
+            right: 45%;
+            top: 95%;
+        }
+
+        #back {
+            position: absolute;
+            bottom: 0%;
+            height: 100%;
+            width: 101%;
+            z-index: 2;
+            background-size: cover;
+            display: none;
+        }
+
+        .stands {
+            height: 100%;
+            width: 6.66%;
+            display: inline-block;
+        }
+
+        img {
+            height: 10%;
+            position: relative;
+            top: 100%;
+            visibility: visible;
+            animation-timing-function: linear;
+            transition: all .8s ease !important;
+        }
+
+        @keyframes animation {
+            from {
+                top: -8%;
+            }
+
+            to {
+                top: 100%;
+            }
+        }
+
+        .side {
+            position: relative;
+            right: 10%;
+            top: 18%;
+            font-size: 270%;
+            font-family: impact;
+        }
+
+        #comment {
+            position: absolute;
+            bottom: 45%;
+            right: 7%;
+            height: 40%;
+            width: 18%;
+            padding-top: 1%;
+            padding-left: 5%;
+            background-color: rgba(255, 255, 255, 0.45);
+            z-index: 1;
+            text-align: left;
+            font-size: 85%;
+            color: #9e9e9e;
+            display: none;
+        }
+
+        #opening {
+            height: 100%;
+            width: 50%;
+            position: relative;
+            right: 25%;
+            text-align: center;
+            background-color: #fff;
+            border-right: solid;
+            border-left: solid;
+            border-color: #e91e63;
+            border-width: 6px;
+            transition: all .3s ease !important;
+        }
+
+        .title {
+            font-size: 700%;
+            font-family: M008016d;
+            position: relative;
+            bottom: 54%;
+        }
+
+        #title2 {
+            font-family: impact;
+            position: relative;
+            bottom: 56%;
+            font-size: 750%;
+            color: #E91E63;
+        }
+
+        #ball {
+            position: relative;
+            top: 20%;
+            height: 0%;
+        }
+
+        #play {
+            position: absolute;
+            top: 51%;
+            height: 9%;
+            right: 46.5%;
+            display: none;
+        }
+
+        #exit {
+            height: 9%;
+            width: 14%;
+            position: relative;
+            bottom: 9%;
+            border-radius: 50px;
+            border: solid;
+            border-color: #e91e63;
+            background-color: #fff;
+            color: #e91e63;
+            font-family: 'M008016d';
+            font-size: 250%;
+            transition: ease .6s;
+        }
+
+            #exit:hover {
+                background-color: #E91E63;
+                border: none;
+                color: #fff;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="back">
+        <div id="base"></div>
+    </div>
+    <div id="comment">
+        <label class="side">points :</label>
+        <label class="side" id="points">0</label>
+        <br />
+        <br />
+        <label class="side">balls :</label>
+        <label class="side" id="numberBall">0</label>
+        <br />
+        <br />
+        <label class="side">bombs :</label>
+        <label class="side" id="numberBomb">0</label>
+    </div>
+    <div id="opening">
+        <img src="images/image3_2585_2017-08-16_14-17-51.jpg" id="ball" />
+        <br />
+        <label class="title" id="title1">Catch</label>
+        <label class="title" id="title2">The</label>
+        <label class="title" id="title3">Balls</label>
+        <br />
+        <img src="images/exaile-6.png" id="play" />
+        <input type="button" id="exit" value="exit"/>
+    </div>
+    <audio src="../audio/alert_drip.wav" id="plus"></audio>
+    <!--<audio src="../audio/c_bang1.wav"></audio>-->
+    <audio src="../audio/itemland4.wav"></audio>
+    <script>
+
+        //-----משתנים-----
+        var quike = [1.75, 1.9, 2, 2.3];
+        var images = ["images/applications-toys.png", "images/bomb_PNG28.png", "images/enigma-2.png", "images/kbounce.png", "images/sea_mine.png"];
+        var numbers = [];
+        var point = 0;
+        var bomb = 0;
+        var ball = 0;
+        var set;
+
+        //-----פונקציות-----
+
+        function CreateDivs() {
+            for (var i = 0; i < 15; i++) {
+                var div = document.createElement("div");
+                div.className = "stands";
+                div.id = "stand" + i;
+                var img = document.createElement("img");
+                img.id = "img" + i;
+                div.appendChild(img);
+                document.getElementById("back").appendChild(div);
+            }
+        }
+
+        function RandomImage() {
+            do {
+                var number = Math.round(Math.random() * 100) % 15;
+            } while (numbers[numbers.length - 1] == number || numbers[numbers.length - 2] == number);
+            numbers.push(number);
+            var place = Math.round(Math.random() * 100) % images.length;
+            document.getElementById("img" + number).src = images[place];
+            document.getElementById("img" + number).setAttribute("data-src", images[place]);
+            var duration_ = Math.round(Math.random() * 100) % quike.length;
+            document.getElementById("img" + number).style.animationDuration = quike[duration_] + "s";
+            document.getElementById("img" + number).style.animationName = "animation";
+            document.getElementById("img" + number).style.display = "none";
+            setTimeout(function () { document.getElementById("img" + number).style.display = "block"; }, 10);
+        }
+
+        function moveBase() {
+            pos = event.pageX;
+            document.getElementById("base").style.right = window.screen.width - pos - 60 + "px";
+
+        }
+        var img = "images/שחור%20שקוף.png";
+        function check() {
+            var baseWidth = document.getElementById("base").offsetWidth;
+            var baseLeft = document.getElementById("base").offsetLeft;
+            var baseTop = document.getElementById("base").offsetTop;
+            var baseHeight = document.getElementById("base").offsetHeight;
+            for (var i = 0; i < 15; i++) {
+                var myImage = document.getElementById("img" + i);
+                var bombWidth = myImage.offsetWidth;
+                var bombLeft = myImage.offsetLeft;
+                var height = myImage.offsetHeight;
+                var bombTop = myImage.offsetTop;
+                console.log("l:" + bombLeft + " height " + height + " bombTop: " + bombTop);
+                if (bombTop + height >= baseTop && bombTop + height <= baseTop + baseHeight && bombLeft <= baseLeft + baseWidth && bombLeft + bombWidth >= baseLeft) {
+                    if (myImage.getAttribute("data-src") == "images/bomb_PNG28.png" || myImage.getAttribute("data-src") == "images/sea_mine.png") {
+                        point -= 5;
+                        bomb++;
+                        document.getElementById("points").innerHTML = point;
+                        document.getElementById("numberBomb").innerHTML = bomb;
+                        if (bomb == 5) {
+                            finish();
+                        }
+                    }
+                    else {
+                        document.getElementById("plus").pause();
+                        document.getElementById("plus").play();
+                        point += 5;
+                        ball++;
+                        document.getElementById("points").innerHTML = point;
+                        document.getElementById("numberBall").innerHTML = ball;
+                        if (point == 100) {
+                            document.getElementById("points").style.color = "#009688";
+                        }
+                        else if (point == 300) {
+                            document.getElementById("points").style.color = "#8bc34a";
+                        }
+                        else if (point == 200) {
+                            document.getElementById("points").style.color = "#FFEB3B";
+                        }
+                        else if (point == 400) {
+                            quike.push(1.5);
+                        }
+                        else if (point == 500) {
+                            document.getElementById("points").style.color = "#ffeb3b";
+                        }
+                        else if (point == 600) {
+                            document.getElementById("points").style.color = "#fff";
+                        }
+                        else if (point == 700) {
+                            document.getElementById("points").style.color = "#ff9800";
+                        }
+                        else if (point == 900) {
+                            document.getElementById("points").style.color = "#ff5722";
+                        }
+                        else if (point == 1000) {
+                            document.getElementById("points").style.color = "#e91e63";
+                            document.getElementById("points").style.fontSize = "300%";
+                        }
+                        else if (point == 1200) {
+                            document.getElementById("points").style.color = "#673ab7";
+                        }
+                        else if (point == 1400) {
+                            document.getElementById("points").style.color = "#3f51b5";
+                        }
+                        else if (point == 1600) {
+                            document.getElementById("points").style.color = "#2196f3";
+                        }
+                        else if (point == 1800) {
+                            document.getElementById("points").style.color = "#00bcd4";
+                        }
+                        else if (point == 2000) {
+                            setTimeout(finish(), 1000);
+                        }
+                    }
+                    myImage.style.display = "none";
+                }
+            }
+        }
+
+        function finish() {
+            sessionStorage.setItem("points", point);
+            sessionStorage.setItem("balls", ball);
+            sessionStorage.setItem("bombs", bomb);
+            clearInterval(set);
+            window.location = "GameOver.html";
+        }
+
+        function height() {
+            document.getElementById("ball").style.height = "69%";
+            setTimeout(button, 800);
+        }
+
+        function button() {
+            document.getElementById("play").style.display = "block";
+            document.getElementById("opening").style.borderColor = "#fff";
+        }
+
+        document.getElementById("play").onclick = function () {
+            document.getElementById("opening").style.display = "none";
+            document.getElementById("back").style.display = "block";
+            document.getElementById("comment").style.display = "block";
+            CreateDivs();
+            document.onmousemove = moveBase;
+            set = setInterval(RandomImage, 600);
+            RandomImage();
+            setInterval(check, 1);
+        }
+
+        document.getElementById("exit").onclick = function () {
+            window.location = "../Home/Games.html";
+        }
+
+        //-----הפעלת פונקציות-----
+
+        setTimeout(height, 100);
+
+    </script>
+</body>
+</html>

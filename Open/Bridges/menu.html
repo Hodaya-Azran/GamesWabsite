@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bridges</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            background-color: #000;
+            background-image: url('images/כתמים.jpg');
+            background-size: contain;
+        }
+
+        #options {
+            height: 90%;
+            width: 50%;
+            position: relative;
+            right: 25%;
+            top: 5%;
+            text-align: center;
+            color: #fff;
+            font-family: 'M008016d';
+            font-size: 500%;
+            padding-top: 3%;
+        }
+
+        .opt_s {
+            height: 10%;
+            width: 50%;
+            background-color: #000;
+            border: solid;
+            border-width: 1px;
+            border-color: #fff;
+            position: relative;
+            top: 2%;
+            right: 25%;
+            margin-bottom: 2%;
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'M008016d';
+            font-size: 60%;
+        }
+
+        #instructions {
+            color: #FFEB3B;
+            border-color: #FFEB3B;
+        }
+
+        #level1 {
+            color: #FF9800;
+            border-color: #FF9800;
+        }
+
+        #level2 {
+            color: #F44336;
+            border-color: #F44336;
+        }
+
+        #level3 {
+            color: #E91E63;
+            border-color: #E91E63;
+        }
+
+        #level4 {
+            color: #2196F3;
+            border-color: #2196F3;
+        }
+
+        #exit {
+            color: #00BCD4;
+            border-color: #00BCD4;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="options">Bridges</div>
+    <script>
+        var locations = ["instructions.html", "BridgesGame.html", "BridgesGame.html", "BridgesGame.html", "BridgesGame.html", "../Home/Games.html"];
+        var option = ["instructions", "level 1", "level 2", "level 3", "level 4", "exit"];
+        var optionId = ["instructions", "level1", "level2", "level3", "level4", "exit"];
+        function createOptions() {
+            for (var i = 0; i < option.length; i++) {
+                var div = document.createElement("div");
+                div.classList.add("opt_s");
+                div.id = optionId[i];
+                div.innerHTML = option[i];
+                div.onmouseenter = enter;
+                div.onmouseleave = leave;
+                div.onclick = click;
+                document.getElementById("options").appendChild(div);
+            }
+        }
+
+        createOptions();
+
+        function enter() {
+            event.target.style.boxShadow = "0px 0px 7px #ffffff";
+        }
+
+        function leave() {
+            event.target.style.boxShadow = "none";
+        }
+
+        function click() {
+            var placing = optionId.indexOf(event.target.id);
+            if (placing > 0 && placing < 5) {
+                var level = placing;
+                sessionStorage.setItem("level", level);
+            }
+            window.location = locations[optionId.indexOf(event.target.id)];
+        }
+
+    </script>
+</body>
+</html>

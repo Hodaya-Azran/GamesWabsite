@@ -1,0 +1,1291 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title id="t">Bridges</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 99%;
+            width: 100%;
+            background-image: url("images/כתמים.jpg");
+            background-size: contain;
+            overflow: hidden;
+        }
+
+        #base {
+            height: 102%;
+            width: 100.4%;
+            position: relative;
+            bottom: 0.8%;
+            text-align: center;
+        }
+
+        #board {
+            height: 72.5%;
+            width: 36%;
+            background-color: rgba(0, 0, 0, 0.00);
+            border-color: #202020;
+            border-width: 1px;
+            position: relative;
+            bottom: 69.5%;
+            right: 29.1%;
+        }
+
+        .places {
+            height: 16.67%;
+            width: 16.66%;
+            border-color: #202020;
+            border-width: 1px;
+            display: inline-block;
+            transition: all ease .8s;
+        }
+
+        .balls {
+            border-radius: 50%;
+            height: 80%;
+            width: 75%;
+            position: relative;
+            right: 11%;
+            bottom: 91%;
+        }
+
+        .sides {
+            height: 50%;
+            width: 50%;
+            display: inline-block;
+            border-width: 10.4px;
+            border-color: rgba(255, 255, 255, 0.00);
+            position: relative;
+            left: 3%;
+        }
+
+        #matter {
+            font-family: 'M008016d';
+            font-size: 340%;
+            position: relative;
+            top: 0.5vw;
+        }
+
+        #table {
+            height: 72.7%;
+            width: 36.2%;
+            background-color: rgba(0, 0, 0, 0.00);
+            position: relative;
+            top: 3%;
+            right: 29%;
+        }
+
+            #table div {
+                height: 16.67%;
+                width: 16.66%;
+                border: solid;
+                border-color: #202020;
+                border-width: 1px;
+                display: inline-block;
+            }
+
+        #winner {
+            height: 55%;
+            width: 30%;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: relative;
+            bottom: 80%;
+            right: 33.1%;
+            text-align: center;
+            border: solid;
+            border-color: #fff;
+            padding: 1.5%;
+            padding-top: 3%;
+            display: none;
+        }
+
+        #close {
+            font-family: arial;
+            position: absolute;
+            top: 3%;
+            right: 3%;
+            font-size: 250%;
+            color: #fff;
+            float: right;
+            height: 12%;
+            width: 11.5%;
+            padding-top: 1%;
+            border-radius: 50px;
+        }
+
+        .contact {
+            font-family: Arial;
+            color: #fff;
+        }
+
+        #compliment {
+            display: block;
+            direction: ltr;
+            position: relative;
+            bottom: 4%;
+            font-size: 270%;
+        }
+
+        #comment {
+            position: relative;
+            top: 24%;
+            font-size: 145%;
+        }
+
+        .buttons {
+            height: 15%;
+            width: 60%;
+            border: solid;
+            border-color: #fff;
+            color: #fff;
+            position: relative;
+            right: 20%;
+            top: 10%;
+            font-size: 170%;
+            font-family: Arial;
+            padding: 2%;
+            margin-bottom: 3%;
+        }
+
+
+       #pointing {
+    height: 5%;
+    width: 36%;
+    position: relative;
+    right: 27.5%;
+    top: 0.7%;
+    direction: ltr;
+    color: #6f6f6f;
+    font-size: 130%;
+    padding-top: 1.5%;
+    text-align: left;
+    font-family: Arial;
+}
+
+        #part {
+            position: relative;
+            left: 1%;
+        }
+
+        #moves, #percent {
+            margin-left: 14.5%;
+        }
+
+        #special {
+            position: absolute;
+            bottom: 14%;
+            right: 28%;
+            font-size: 155%;
+        }
+
+        #nextCard {
+            position: absolute;
+            display: inline-block;
+            height: 6%;
+            width: 3%;
+            border: solid;
+            border-color: #525252;
+            border-width: 1.5px !important;
+            bottom: 2%;
+            right: 42%;
+            border-radius: 50px;
+        }
+
+        #clear {
+            border-radius: 50px;
+            display: inline-block;
+            height: 6%;
+            width: 5%;
+            border: solid;
+            border-color: #525252;
+            border-width: 1.5px !important;
+            color: #525252;
+            position: absolute;
+            bottom: 2%;
+            right: 46%;
+            font-size: 120%;
+            font-family: arial;
+            padding-top: 0.5%;
+        }
+
+        #right {
+            height: 60%;
+            position: relative;
+            top: 20%;
+            left: 4%;
+        }
+
+      #showStep {
+    position: absolute;
+    right: 30%;
+    display: inline-block;
+    height: 6%;
+    width: 7%;
+    top: 3.5%;
+    border-radius: 50px;
+    background-color: #464646;
+}
+
+        .steps {
+            height: 80%;
+            position: relative;
+            top: 10%;
+            display: inline-block;
+            width: 19%;
+            margin-left: 1%;
+            background-color: #656565;
+            visibility: hidden;
+        }
+
+        #step4 {
+            border-bottom-right-radius: 50px;
+            border-top-right-radius: 50px;
+            background-color: #2196F3;
+        }
+
+        #step3 {
+            background-color: #E91E63;
+        }
+
+        #step2 {
+            background-color: #F44336;
+        }
+
+        #step1 {
+            border-bottom-left-radius: 50px;
+            border-top-left-radius: 50px;
+            background-color: #FFEB3B;
+            visibility: visible;
+        }
+
+        #size {
+            color: #464646;
+            margin-right: 3%;
+            margin-left: 1%;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <label id="matter">
+            Bridges - level
+            <label id="l"></label>
+            <label id="size"></label>
+        </label>
+        <div id="showStep">
+            <div id="step4" class="steps"></div>
+            <div id="step3" class="steps"></div>
+            <div id="step2" class="steps"></div>
+            <div id="step1" class="steps"></div>
+        </div>
+        <div id="pointing">
+            <label id="flows">flows: </label>
+            <label id="part">0</label>
+            <label id="entire">/6</label>
+            <label id="moves">moves: </label>
+            <label id="numberM">0</label>
+            <label id="percent">percent: </label>
+            <label id="numberP">0%</label>
+        </div>
+        <div id="table"></div>
+        <div id="board"></div>
+        <div id="nextCard" onmousemove="lightColor(event)" onmouseout="off(event)">
+            <img src="ikons/right.png" id="right" title="מעבר ללוח הבא" />
+        </div>
+        <div id="clear" onmousemove="lightColor(event)" onmouseout="off(event)" title="נקה הכל">clear</div>
+    </div>
+    <div id="winner">
+        <div id="close" onmousemove="paintButton(event)" onmouseout="clearButton(event)" title="חזור לתפריט">
+            <label>x</label>
+        </div>
+        <label class="contact" id="compliment"></label>
+        <label class="contact" id="comment">
+            You completed the level in
+            <label id="moving">0</label>
+            <br />
+            moves
+        </label>
+        <div class="buttons" id="continue" onmousemove="paintButton(event)" onmouseout="clearButton(event)" title="המשך באותו שלב">
+            <label>continue</label>
+        </div>
+        <div class="buttons" id="next" onmousemove="paintButton(event)" onmouseout="clearButton(event)" title="עבור לשלב הבא">
+            <label>next level</label>
+        </div>
+        <div class="buttons" id="exit" onmousemove="paintButton(event)" onmouseout="clearButton(event)" title="חזור לתפריט">
+            <label>exit</label>
+        </div>
+        <label id="special" class="contact"></label>
+    </div>
+    <audio src="sounds/Drop.mp3" id="drop"></audio>
+    <audio src="sounds/Flash%20Button%20Sounds-13485-Free-Loops.com.mp3" id="error"></audio>
+    <script>
+
+        //-----משתנים-----
+
+        var level = sessionStorage.getItem("level") == undefined ? 1 : parseInt(sessionStorage.getItem("level"));
+        if (sessionStorage.getItem("level") == undefined) {
+            sessionStorage.setItem("level", 1);
+        }
+        document.getElementById("l").innerHTML = " " + 1;
+        var colors = ["black", "red", "yellow", "blue", "#ff00dc", "#12eb19", "#f5751b", "lightblue", "purple"];
+        var lightColors = ["black", "rgba(255, 0, 0, 0.15)", "rgba(255, 255, 0, 0.15)", "rgba(0, 0, 255, 0.15)", "rgba(255, 0, 220, 0.15)", "rgba(18, 235, 25, 0.15)", "rgba(245, 117, 27, 0.15)", "rgba(173, 216, 230, 0.15)", "rgba(128, 0, 128, 0.15)"];
+        var color;
+        var flag = 0;
+        var order = [];
+        var startPlace;
+
+
+        var placing =
+            [
+                /*שלב 1*/
+                [
+                    [
+                        [1, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 4, 3, 0],
+                        [3, 0, 2, 0, 0, 0],
+                        [5, 4, 1, 0, 2, 0],
+                        [0, 0, 5, 0, 0, 0],
+                    ],
+
+                    [
+                        [4, 0, 1, 0, 0, 0],
+                        [1, 0, 2, 0, 0, 0],
+                        [0, 0, 4, 3, 0, 0],
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 3, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [5, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 1, 3, 0],
+                        [0, 0, 4, 0, 0, 5],
+                        [0, 1, 2, 0, 0, 4],
+                        [0, 0, 3, 0, 0, 2],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 3, 4],
+                        [0, 1, 0, 0, 4, 0],
+                        [0, 0, 0, 0, 3, 1],
+                        [0, 0, 0, 0, 2, 0],
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 2],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 5, 0, 0, 0, 0],
+                        [4, 2, 3, 1, 0, 0],
+                        [0, 0, 0, 0, 5, 4],
+                        [0, 3, 0, 0, 0, 1],
+                        [0, 0, 0, 0, 0, 2],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 3, 1, 0, 2, 0],
+                        [0, 0, 0, 0, 4, 0],
+                        [0, 0, 1, 0, 0, 0],
+                        [0, 0, 3, 2, 0, 0],
+                        [0, 0, 0, 5, 4, 5],
+                    ]
+                ],
+                /*שלב 2*/
+                [
+                    [
+                        [2, 0, 5, 0, 0, 0, 0],
+                        [6, 0, 4, 0, 0, 0, 5],
+                        [0, 0, 7, 0, 3, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 4],
+                        [0, 1, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 7, 3],
+                        [6, 0, 1, 0, 0, 0, 2],
+                    ],
+
+                    [
+                        [4, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 3, 0, 0, 0],
+                        [2, 1, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 5, 0, 0, 0],
+                        [0, 5, 0, 0, 0, 0, 0],
+                        [1, 0, 0, 0, 0, 0, 0],
+                        [2, 0, 3, 0, 0, 4, 0],
+                    ],
+
+                    [
+                        [0, 3, 1, 0, 0, 0, 0],
+                        [0, 6, 0, 5, 0, 4, 0],
+                        [0, 0, 0, 0, 0, 3, 0],
+                        [0, 0, 0, 4, 0, 0, 0],
+                        [0, 0, 5, 0, 0, 2, 0],
+                        [0, 0, 6, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 2, 1, 0],
+                    ],
+
+                    [
+                        [3, 0, 1, 2, 5, 0, 4],
+                        [0, 0, 0, 0, 0, 0, 6],
+                        [0, 0, 0, 5, 0, 0, 0],
+                        [0, 0, 0, 2, 4, 0, 6],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 0],
+                        [1, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [3, 0, 0, 0, 0, 0, 1],
+                        [4, 0, 3, 1, 2, 0, 2],
+                        [5, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 5, 0],
+                        [0, 4, 0, 0, 0, 6, 0],
+                        [0, 0, 6, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [5, 6, 0, 0, 0, 3, 1],
+                        [4, 0, 0, 0, 0, 1, 2],
+                        [0, 0, 0, 0, 3, 0, 0],
+                        [0, 6, 0, 0, 0, 0, 0],
+                        [0, 5, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 4],
+                    ]
+                ],
+                /*שלב 3*/
+                [
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 1],
+                        [0, 4, 7, 0, 7, 0, 0, 6],
+                        [0, 0, 0, 0, 0, 6, 5, 2],
+                        [0, 3, 2, 5, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 4, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 3],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [1, 0, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [4, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 3, 2, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 2, 0],
+                        [0, 0, 0, 0, 4, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 6, 0, 0],
+                        [0, 1, 0, 6, 0, 5, 0, 0],
+                        [0, 0, 0, 0, 0, 1, 0, 0],
+                        [5, 0, 0, 0, 3, 0, 0, 0],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 3, 0, 0, 4, 5, 0, 0],
+                        [0, 0, 0, 2, 0, 1, 0, 0],
+                        [1, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 6, 0, 0, 0, 0, 0],
+                        [0, 6, 0, 0, 0, 0, 0, 0],
+                        [3, 4, 0, 0, 0, 0, 5, 0],
+                        [2, 0, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [6, 0, 0, 0, 0, 0, 2, 4],
+                        [0, 1, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 2, 0, 0, 0, 0],
+                        [0, 0, 3, 0, 0, 0, 0, 0],
+                        [3, 0, 4, 0, 0, 1, 0, 0],
+                        [0, 0, 5, 0, 0, 6, 0, 0],
+                        [0, 5, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [8, 0, 0, 0, 0, 0, 1, 0],
+                        [0, 6, 0, 0, 0, 0, 2, 0],
+                        [0, 5, 0, 4, 0, 0, 0, 0],
+                        [0, 8, 0, 0, 5, 0, 0, 0],
+                        [0, 0, 0, 3, 1, 0, 0, 0],
+                        [0, 3, 0, 0, 0, 6, 2, 0],
+                        [0, 0, 0, 4, 0, 0, 0, 0],
+                        [7, 0, 0, 0, 0, 0, 0, 7],
+                    ],
+
+                    /**/[
+                        [0, 0, 0, 1, 7, 0, 0, 7],
+                        [0, 3, 0, 3, 8, 4, 0, 0],
+                        [0, 0, 0, 0, 0, 5, 0, 0],
+                        [0, 0, 9, 2, 0, 6, 0, 0],
+                        [0, 0, 0, 8, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 4, 0, 0, 0],
+                        [1, 2, 0, 0, 6, 0, 5, 0],
+                        [9, 0, 0, 0, 0, 0, 0, 0],
+                    ]
+                ],
+                /*שלב4*/
+                [
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 4, 0, 0, 4, 0],
+                        [1, 0, 5, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 5, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0],
+                        [0, 3, 1, 0, 0, 0, 0, 0, 0],
+                        [0, 2, 0, 0, 0, 0, 0, 0, 0],
+                        [6, 0, 0, 0, 0, 0, 0, 7, 0],
+                        [7, 0, 0, 0, 6, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 3, 0, 0, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 6, 0, 0, 4, 3, 2, 1],
+                        [0, 0, 0, 0, 0, 0, 5, 0, 4],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 6],
+                        [0, 0, 0, 0, 0, 0, 5, 0, 0],
+                        [7, 1, 0, 0, 7, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 4, 0, 0, 0, 0, 3, 2, 0],
+                        [0, 0, 0, 6, 5, 0, 0, 0, 1],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 7, 2, 4, 0, 3, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 5],
+                        [0, 6, 0, 0, 0, 0, 0, 7, 0],
+                        [0, 0, 0, 0, 0, 1, 0, 0, 0],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [4, 0, 0, 0, 5, 0, 0, 2, 0],
+                        [0, 0, 6, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 2, 0, 0, 1, 0, 0],
+                        [0, 0, 7, 0, 6, 4, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 7, 0, 3, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [8, 0, 0, 0, 5, 8, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 3, 1, 0],
+                    ],
+
+                    [
+                        [6, 7, 3, 4, 1, 6, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 7, 0, 5, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 1, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 5, 2, 0, 0, 4, 0, 0],
+                        [0, 0, 0, 0, 3, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    ],
+
+                    [
+                        [1, 0, 0, 5, 7, 0, 0, 4, 3],
+                        [0, 0, 6, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 7, 0, 0],
+                        [0, 2, 3, 4, 0, 6, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 5, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 2],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 1],
+                    ],
+
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 3, 0, 9, 0, 0, 0, 9, 0],
+                        [0, 2, 0, 8, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 8, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 6, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [7, 0, 0, 0, 0, 0, 5, 6, 4],
+                        [0, 0, 2, 0, 1, 4, 0, 5, 3],
+                        [7, 0, 1, 0, 0, 0, 0, 0, 0],
+                    ]
+                ]
+            ];
+
+        var heights = ["16.67", "14.3", "12.51", "11.15"];
+        var widths = ["16.66", "14.28", "12.5", "11.111"];
+        var toPaint = [[3, 4, 5], [5, 4, 3], [1, 4, 7], [7, 4, 1]];
+        var direction = [1, -1, 10, -10];
+        var possible = 1;
+        var boardNumber = 0;
+        var size = parseInt(sessionStorage.getItem("level")) + 5;
+        var current;
+        var last;
+        var placeColor;
+        var round;
+        var laster;
+        var board;
+        var count;
+        var numbers = [0, 1, 2, 3, 4, 5];
+        var mix = [];
+        var radius = "26px";
+        //דורשים אתחול
+        var balls = [];
+        var orderColors;
+        var win;
+        var enterStart;
+        var percent;
+        var isEntire;
+        var moves;
+        var isTwoBalls;
+        var isWas;
+        var firstTime;
+        var max;
+        var isTwo;
+        var isDrag;
+        var painted = [];
+        var isMove;
+        var colorBoard;
+
+        //-----פונקציות-----
+
+        function mixer() {
+            for (var i = 0; i < numbers.length; i++) {
+                do {
+                    x = Math.round(Math.random() * 100) % numbers.length;
+                } while (mix.indexOf(x) > -1);
+                mix.push(x);
+            }
+        }
+
+        function Initialization /*אתחול*/() {
+            orderColors = [[], [], [], [], [], [], [], [], [], []];
+            win = 1;
+            enterStart = 0;
+            percent = 0;
+            isEntire = 1;
+            moves = 0;
+            isTwoBalls = 0;
+            isWas = 0;
+            firstTime = 1;
+            max = 0;
+            isTwo = 0;
+            isDrag = 0;
+            painted = [];
+            isMove = 0;
+            balls = [];
+            level = sessionStorage.getItem("level") == undefined ? 1 : parseInt(sessionStorage.getItem("level"));
+            if (sessionStorage.getItem("level") == undefined) {
+                sessionStorage.setItem("level", 1);
+            }
+            size = parseInt(sessionStorage.getItem("level")) + 5;
+            document.getElementById("l").innerHTML = " " + level;
+            document.getElementById("size").innerHTML = " " + size + "x" + size + " ";
+            document.getElementById("t").innerHTML = "Bridges " + size + "x" + size;
+            if (level == 1) {
+                document.getElementById("matter").style.color = "#FFEB3B";
+            }
+            else if (level == 2) {
+                document.getElementById("matter").style.color = "#F44336";
+            }
+            else if (level == 3) {
+                document.getElementById("matter").style.color = "#E91E63";
+            }
+            else if (level == 4) {
+                document.getElementById("matter").style.color = "#2196F3";
+                document.getElementById("next").style.display = "none";
+            }
+            for (var i = 1; i <= level; i++) {
+                document.getElementById("step" + i).style.visibility = "visible";
+            }
+            colorBoard = document.getElementById("matter").style.color;
+        }
+
+        function CreateTable() {
+            for (var i = 0; i < size; i++) {
+                for (var j = 0; j < size; j++) {
+                    var div = document.createElement("div");
+                    div.style.height = heights[level - 1] + "%";
+                    div.style.width = widths[level - 1] + "%";
+                    document.getElementById("table").appendChild(div);
+                }
+                document.getElementById("table").appendChild(document.createElement("br"));
+            }
+        }
+
+        function CreateBoard() {
+            board = mix[0];
+            console.log(mix[0]);
+            for (var i = mix.indexOf(mix[0]) ; i < mix.length - 1; i++) {
+                mix[i] = mix[i + 1];
+            }
+            mix.pop();
+            for (var i = 0; i < size; i++) {
+                for (var j = 0; j < size; j++) {
+                    var div = document.createElement("div");
+                    div.onmouseenter = Enter;
+                    div.onmousedown = Down;
+                    div.style.height = heights[level - 1] + "%";
+                    div.style.width = widths[level - 1] + "%";
+                    div.onmouseup = Up;
+                    div.ondragend = Up;
+                    div.ondragleave = leaveD;
+                    div.ondragstart = Down;
+                    if (i == 0) {
+                        div.id = "place" + j;
+                        div.setAttribute("data-placing", j);
+                        div.setAttribute("data-possible", "yes");
+                        div.setAttribute("data-color", colors[placing[level - 1][board][i][j]]);
+                    }
+                    else {
+                        div.id = "place" + i + j;
+                        div.setAttribute("data-placing", i + "" + j);
+                        div.setAttribute("data-possible", "yes");
+                        div.setAttribute("data-color", colors[placing[level - 1][board][i][j]]);
+                    }
+                    div.className = "places";
+                    document.getElementById("board").appendChild(div);
+                    CreateSides(i, j);
+                    if (placing[level - 1][board][i][j] != 0) {
+                        CreateBalls(i, j);
+                    }
+                }
+            }
+        }
+
+        function CheckPart() {
+            for (var i = 0; i < size; i++)
+                for (var j = 0; j < size; j++)
+                    if (placing[level - 1][board][i][j] > max)
+                        max = placing[level - 1][board][i][j];
+            document.getElementById("entire").innerHTML = "/" + max;
+        }
+
+        function CreateSides(i, j) {
+            for (var k = 0; k < 9; k++) {
+                var div = document.createElement("div");
+                div.className = "sides";
+                if (k == 0 || k == 2 || k == 6 || k == 8) {
+                    div.style.height = "30%";
+                    div.style.width = "30%";
+                }
+                else if (k == 1 || k == 7) {
+                    div.style.height = "34%";
+                    div.style.width = "40%";
+                    if (k == 1 && level == 4) {
+                        div.style.height = "38%";
+                        
+                    }
+                }
+                else if ((k == 3 || k == 5) && level != 2) {
+                    div.style.width = "30%";
+                    div.style.height = "40%";
+                }
+                else if ((k == 3 || k == 5) && level == 2) {
+                    div.style.height = "41%";
+                    if (k == 5 && level == 2 && j == 3) {
+                        div.style.width = "30.05%";
+                    }
+                    else {
+                        div.style.width = "30%";
+                    }
+                }
+                else if (k == 4 && level != 2) {
+                    div.style.height = "40%";
+                    div.style.width = "40%";
+                }
+                else if (k == 4 && level == 2) {
+                    div.style.height = "41%";
+                    div.style.width = "39%";
+                }
+                if (k == 7) {
+                    div.style.height = "31%";
+                }
+                if (i == 0) {
+                    div.id = "side" + j + k;
+                    document.getElementById("place" + j).appendChild(div);
+                }
+                else {
+                    div.id = "side" + i + j + k;
+                    document.getElementById("place" + i + j).appendChild(div);
+                }
+            }
+        }
+
+        function CreateBalls(i, j) {
+            var div = document.createElement("div");
+            div.className = "balls";
+            if (level == 4)
+                div.style.bottom = "102%";
+            if (level == 3)
+                div.style.bottom= "96%";
+            div.onclick = Clear;
+            div.style.backgroundColor = colors[placing[level - 1][board][i][j]];
+            if (i == 0) {
+                document.getElementById("place" + j).appendChild(div);
+                balls.push("" + j);
+            }
+            else {
+                document.getElementById("place" + i + j).appendChild(div);
+                balls.push(i + "" + j);
+            }
+        }
+
+        function Down() {
+            color = event.currentTarget.getAttribute("data-color");
+            if (color != "black") {
+                flag = 1;
+                startPlace = event.currentTarget.getAttribute("data-placing");
+                order.push(startPlace);
+                last = startPlace;
+                possible = 0;
+                enterStart = 1;
+            }
+        }
+
+        function Enter() {
+            if (flag == 1 && document.getElementById(event.currentTarget.id).getAttribute("data-possible") == "yes" && isDrag == 0) {
+                isMove = 1;
+                current = event.currentTarget.getAttribute("data-placing");
+                if (enterStart == 1) {
+                    orderColors[colors.indexOf(color)].push(startPlace);
+                    document.getElementById("place" + startPlace).style.backgroundColor = lightColors[colors.indexOf(color)];
+                    enterStart = 0;
+                    percent++;
+                    round = Math.round(percent * 100 / (size * size));
+                    if (round > 100) {
+                        round = 100;
+                    }
+                    document.getElementById("numberP").innerHTML = round + "%";
+                }
+                if (direction.indexOf(current - last) > -1) {
+                    setTimeout(Paint(direction.indexOf(current - last)), 1000);
+                    order.push(current);
+                    if (orderColors[colors.indexOf(color)].indexOf(current) == -1) {
+                        orderColors[colors.indexOf(color)].push(current);
+                    }
+                    laster = order[order.length - 3];
+                    if (direction.indexOf((current - laster) / 2) == -1) {
+                        console.log("---------------current - " + current + " laster " + laster);
+                        BorderRadius();
+                    }
+                }
+                if (order.indexOf(current) == -1) {
+                    order.push(current);
+                }
+                //אם יצאתי מכדור
+                if (possible == 0) {
+                    document.getElementById("place" + last).setAttribute("data-possible", "no");
+                    possible = 1;
+                    isTwoBalls++;
+                    if (isTwoBalls == 2) {
+                        isTwoBalls = 0;
+                    }
+                }
+                    //אם נכנסתי לכדור
+                else if (balls.indexOf("" + current) > -1) {
+                    isTwoBalls++;
+                    if (isTwoBalls == 2) {
+                        //document.getElementById("drop").play();
+                    }
+                    if (document.getElementById("place" + current).getAttribute("data-color") != color) {
+                        document.getElementById("error").play();
+                        document.getElementById("drop").pause();
+                        isTwoBalls = 0;
+                        Clear();
+                        Up();
+                    }
+                    else {
+                        document.getElementById("place" + current).setAttribute("data-possible", "no");
+                    }
+                    Up();
+                }
+                last = current;
+            }
+            else if (flag == 1 && isDrag == 0) {
+                isTwoBalls = 0;
+                Clear();
+                Up();
+            }
+            else if (isDrag == 1) {
+                leaveD();
+            }
+        }
+
+        function BorderRadius() {
+            if (laster == undefined && orderColors[colors.indexOf(color)].length > 2) {
+                var placing = orderColors[colors.indexOf(color)];
+                var placeLaster = orderColors[colors.indexOf(color)][orderColors[colors.indexOf(color)].length - 3];
+                if (placeLaster - current == 11 || placeLaster - current == -11 || placeLaster - current == 9 || placeLaster - current == -9) {
+                    laster = orderColors[colors.indexOf(color)][placing.length - 3];
+                }
+                else {
+                    laster = orderColors[colors.indexOf(color)][placing.length - 4];
+                }
+            }
+            console.log(current + "last - " + last);
+            var sideA = direction.indexOf(current - last);
+            var sideB = direction.indexOf(last - laster);
+            var place = document.getElementById("side" + last + 4);
+            var difference = current - laster;
+            if (abs(difference) == 11 && ((sideA == 2 && sideB == 0) || (sideA == 1 && sideB == 3))) {
+                place.style.borderTopLeftRadius = radius;
+            }
+            else if (abs(difference) == 11 && ((sideA == 0 && sideB == 2) || (sideA == 3 && sideB == 1))) {
+                place.style.borderBottomRightRadius = radius;
+            }
+            else if (abs(difference) == 9 && ((sideA == 0 && sideB == 3)/**/ || (sideA == 2 && sideB == 1))) {
+                place.style.borderTopRightRadius = radius;
+            }
+            else if (abs(difference) == 9 && ((sideA == 3 && sideB == 0) || (sideA == 1 && sideB == 2))) {
+                place.style.borderBottomLeftRadius = radius;
+            }
+        }
+
+        function abs(value) {
+            if (value >= 0) {
+                return value;
+            }
+            else {
+                return (value * -1);
+            }
+        }
+
+        function Paint(place) {
+            if (painted.indexOf(last) == -1) {
+                painted.push(last);
+                percent++;
+                round = Math.round(percent * 100 / (size * size));
+                if (round > 100) {
+                    round = 100;
+                }
+                document.getElementById("numberP").innerHTML = round + "%";
+            }
+            document.getElementById("place" + current).style.backgroundColor = lightColors[colors.indexOf(color)];
+            for (var i = 0; i < 3; i++) {
+                var sideLast = document.getElementById("side" + last + toPaint[place][i]).style.backgroundColor;
+                var sideCurrent = document.getElementById("side" + current + toPaint[place][i]).style.backgroundColor;
+                if (i == 2 && (sideLast == "" || sideLast == "rgba(0, 0, 0, 0)" || sideLast == "rgba(0, 0, 0, 0.00)")) {
+                    document.getElementById("side" + last + toPaint[place][i]).style.backgroundColor = color;
+                }
+                else if (i != 2 && (sideCurrent == "" || sideCurrent == "rgba(0, 0, 0, 0)" || sideCurrent == "rgba(0, 0, 0, 0.00)")) {
+                    document.getElementById("side" + current + toPaint[place][i]).style.backgroundColor = color;
+                }
+
+                document.getElementById("place" + last).setAttribute("data-possible", "no");
+                if (balls.indexOf("" + current) > -1) {
+                    document.getElementById("place" + current).setAttribute("data-possible", "no");
+                    Up();
+                }
+            }
+        }
+
+        function Up() {
+            console.log("up");
+            if (isMove == 1) {
+                moves++;
+                document.getElementById("numberM").innerHTML = moves;
+                isMove = 0;
+            }
+            flag = 0;
+            isDrag = 0;
+            order = [];
+            count = 0;
+            for (var i = 1; i < max + 1; i++) {
+                if (orderColors[i].length == 0 || isball(i) == 0) {
+                    win = 0;
+                    isEntire = 0;
+                }
+                if (isEntire == 1) {
+                    count++;
+                }
+                isEntire = 1;
+            }
+            if (win == 1 && checkSum() == 1) {
+                setTimeout(winning, 500);
+            }
+            if (count > parseInt(document.getElementById("part").innerHTML)) {
+                document.getElementById("drop").play();
+            }
+            document.getElementById("part").innerHTML = count;
+            win = 1;
+        }
+
+        function isball(i) {
+            for (var j = 1; j < orderColors[i].length; j++) {
+                if (balls.indexOf(orderColors[i][j]) > -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        function Clear() {
+            var check = 0;
+            placeColor = colors.indexOf(color);
+            for (var i = 0; i < orderColors[placeColor].length; i++) {
+                for (var k = painted.indexOf(orderColors[placeColor]) ; k < painted.length - 1; k++) {
+                    painted[k] = painted[k + 1];
+                }
+                painted.pop();
+                painted[painted.indexOf(orderColors[placeColor][i])] = -1;
+                document.getElementById("place" + orderColors[placeColor][i]).style.backgroundColor = "rgba(0, 0, 0, 0.00)";
+                for (var j = 0; j < 9; j++) {
+                    if (document.getElementById("side" + orderColors[placeColor][i] + j).style.backgroundColor != "rgba(0, 0, 0, 0.00)") {
+                        document.getElementById("side" + orderColors[placeColor][i] + j).style.backgroundColor = "rgba(0, 0, 0, 0.00)";
+                        check = 1;
+                    }
+                }
+                document.getElementById("side" + orderColors[placeColor][i] + "4").style.borderRadius = "0px";
+                if (check == 1) {
+                    document.getElementById("place" + orderColors[placeColor][i]).setAttribute("data-possible", "yes");
+                    percent--;
+                    round = Math.round(percent * 100 / (size * size));
+                    if (round > 100) {
+                        round = 100;
+                    }
+                    document.getElementById("numberP").innerHTML = round + "%";
+                }
+                check = 0;
+            }
+            orderColors[placeColor] = [];
+            document.getElementById("part").innerHTML = --count;
+        }
+
+        function winning() {
+            document.getElementById("moving").innerHTML = moves;
+            document.getElementById("compliment").style.color = colorBoard;
+            if (moves == max) {
+                document.getElementById("compliment").innerHTML = "Perfect!";
+            }
+            else if (moves - max < 3) {
+                document.getElementById("compliment").innerHTML = "Nice!";
+            }
+            else {
+                document.getElementById("compliment").innerHTML = "Good!";
+            }
+            document.getElementById("winner").style.display = "block";
+            if (mix.length == 0) {
+                document.getElementById("continue").style.display = "none";
+                document.getElementById("special").style.color = colorBoard;
+                if (level == 4) {
+                    document.getElementById("special").innerHTML = "!You complete the game";
+                }
+                else {
+                    document.getElementById("special").innerHTML = "!You complete the level";
+                }
+            }
+        }
+
+        function closing() {
+            window.location = "menu.html";
+        }
+
+        function leaveD() {
+            console.log(event.currentTarget.id);
+            if (document.getElementById(event.currentTarget.id).getAttribute("data-possible") == "yes"/* || firstTime == 1*/) {
+                isMove = 1;
+                isDrag = 1;
+                current = event.currentTarget.getAttribute("data-placing");
+                last = order[order.length - 1];
+                if (enterStart == 1) {
+                    orderColors[colors.indexOf(color)].push(startPlace);
+                    document.getElementById("place" + startPlace).style.backgroundColor = lightColors[colors.indexOf(color)];
+                    enterStart = 0;
+                    percent++;
+                    round = Math.round(percent * 100 / (size * size));
+                    if (round > 100) {
+                        round = 100;
+                    }
+                    document.getElementById("numberP").innerHTML = round + "%";
+                }
+                if (orderColors[colors.indexOf(color)].indexOf(current) == -1) {
+                    orderColors[colors.indexOf(color)].push(current);
+                }
+                if (orderColors[colors.indexOf(color)].length == 2 && isWas == 0) {
+                    isWas = 1;
+                }
+
+                if (orderColors[colors.indexOf(color)].length == 2) {
+                    startPlace = orderColors[colors.indexOf(color)][0];
+                    if (document.getElementById("side" + startPlace + "5").style.backgroundColor != "rgba(0, 0, 0, 0.00)" && startPlace - orderColors[colors.indexOf(color)][2] == 1) {
+                        document.getElementById("side" + startPlace + "5").style.backgroundColor = "rgba(0, 0, 0, 0.00)";
+                    }
+                    else if (document.getElementById("side" + startPlace + "3").style.backgroundColor != "rgba(0, 0, 0, 0.00)" && orderColors[colors.indexOf(color)][2] - startPlace == 1) {
+                        document.getElementById("side" + startPlace + "3").style.backgroundColor = "rgba(0, 0, 0, 0.00)";
+                    }
+                    last = startPlace;
+                }
+                if (direction.indexOf(current - last) > -1) {
+                    if (order.indexOf(current) == -1) {
+                        order.push(current);
+                    }
+                    laster = order[order.length - 3];
+                    if (direction.indexOf((current - laster) / 2) == -1) {
+                        console.log("---------------current - " + current + " laster " + laster);
+                        BorderRadius();
+                    }
+                    setTimeout(Paint(direction.indexOf(current - last)), 1000);
+                    if (orderColors[colors.indexOf(color)].indexOf(current) == -1) {
+                        orderColors[colors.indexOf(color)].push(current);
+                    }
+                }
+                //אם יצאתי מכדור
+                if (possible == 0) {
+                    document.getElementById("place" + last).setAttribute("data-possible", "no");
+                    possible = 1;
+                    isTwoBalls++;
+                    if (isTwoBalls == 2) {
+                        isTwoBalls = 0;
+                    }
+                }
+                    //אם נכנסתי לכדור
+                else if (balls.indexOf("" + current) > -1) {
+                    isTwoBalls++;
+                    if (isTwoBalls == 2) {
+                        //document.getElementById("drop").play();
+                        isTwoBalls = 0;
+                    }
+                    if (document.getElementById("place" + current).getAttribute("data-color") != color) {
+                        document.getElementById("drop").pause();
+                        document.getElementById("error").play();
+                        isTwoBalls = 0;
+                        Clear();
+                        endD();
+                    }
+                    else {
+                        document.getElementById("place" + current).setAttribute("data-possible", "no");
+                    }
+                    endD();
+                }
+                firstTime = 0;
+            }
+            else {
+                isTwoBalls = 0;
+                endD();
+            }
+        }
+
+        function endD() {
+            console.log("and drag");
+            isWas = 0;
+            firstTime = 1;
+        }
+
+        function refresh() {
+            if (mix.length == 0 && level != 4) {
+                next();
+            }
+            else if (mix.length == 0) {
+                document.getElementById("winner").style.display = "block";
+                document.getElementById("continue").style.display = "none";
+            }
+            else {
+                document.getElementById("numberM").innerHTML = "0";
+                document.getElementById("numberP").innerHTML = "0%";
+                document.getElementById("part").innerHTML = "0";
+                document.getElementById("board").innerHTML = "";
+                Initialization();
+                CreateBoard();
+                CheckPart();
+                moves = 0;
+                percent = 0;
+                document.getElementById("winner").style.display = "none";
+            }
+        }
+
+        function next() {
+            sessionStorage.setItem("level", level + 1);
+            if (level + 1 == 2) {
+                numbers.push(6);
+            }
+            else if (level + 1 == 3) {
+                numbers.push(7);
+            }
+            else if (level + 1 == 4) {
+                numbers.push(8);
+                document.getElementById("next").style.display = "none";
+            }
+            mix = [];
+            mixer();
+            window.location = "BridgesGame.html";
+            refresh();
+        }
+
+        function checkSum() {
+            var sum = 0;
+            for (var i = 0; i < orderColors.length; i++) {
+                sum += orderColors[i].length;
+            }
+            if (sum >= size * size) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function light(event) {
+            event.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.35)";
+        }
+
+        function lightColor(event) {
+            event.currentTarget.style.backgroundColor = colorBoard;
+            event.currentTarget.style.border = "none";
+        }
+
+        function off(event) {
+            var name = event.currentTarget.id;
+            event.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.00)";
+            if (name == "clear" || name == "nextCard") {
+                event.currentTarget.style.border = "solid";
+                event.currentTarget.style.borderColor = "#525252";
+            }
+        }
+
+        document.getElementById("exit").onclick = function () {
+            window.location = "menu.html";
+        }
+
+        document.getElementById("clear").onclick = function () {
+            mix.reverse();
+            mix.push(board);
+            mix.reverse();
+            refresh();
+        }
+
+        function paintButton(event) {
+            event.currentTarget.style.backgroundColor = colorBoard;
+            event.currentTarget.style.color = "#000";
+            event.currentTarget.style.border = "none";
+        }
+
+        function clearButton(event) {
+            event.currentTarget.style.backgroundColor = "rgba(255, 235, 59, 0.00)";
+            event.currentTarget.style.color = "#fff";
+            if (event.currentTarget.id != "close") {
+                event.currentTarget.style.border = "solid";
+            }
+        }
+
+        //-----הפעלת פונקציות-----
+
+        Initialization();
+        mixer();
+        CreateTable();
+        CreateBoard();
+        CheckPart();
+        document.getElementById("close").onclick = closing;
+        document.getElementById("continue").onclick = refresh;
+        document.getElementById("next").onclick = next;
+        document.getElementById("nextCard").onclick = refresh;
+
+    </script>
+</body>
+</html>

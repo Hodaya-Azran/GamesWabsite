@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Catch the Balls</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-size: contain;
+            position: absolute;
+            top: -0.55%;
+        }
+
+        html {
+            background-image: url("images/פרקט-לבן-1.jpg");
+        }
+
+        #base {
+            height: 100%;
+            width: 50%;
+            position: relative;
+            right: 25%;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .title {
+            font-size: 700%;
+            font-family: 'M008016d';
+            position: relative;
+            bottom: 54%;
+        }
+
+        #title2 {
+            font-family: commador;
+            position: relative;
+            bottom: 58%;
+            font-size: 750%;
+            color: #E91E63;
+        }
+
+        #ball {
+            position: relative;
+            top: 25%;
+        }
+
+        #play {
+            position: relative;
+            bottom: 35.5%;
+            height: 9%;
+            right: 0.5%;
+        }
+
+        #exit {
+            height: 7%;
+            width: 13%;
+            font-family: 'M008016d';
+            position: relative;
+            bottom: 9%;
+            border-radius: 50px;
+            border: solid;
+            border-color: #e91e63;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <img src="images/image3_2585_2017-08-16_14-17-51.jpg" id="ball"/>
+        <br />
+        <label class="title" id="title1">Catch</label>
+        <label class="title" id="title2">The</label>
+        <label class="title" id="title3">Balls</label>
+        <br />
+        <img src="images/exaile-6.png" id="play"/>
+        <br />
+    </div>
+    <script>
+        document.getElementById("play").onclick = function () {
+            window.location = "GameBalls.html";
+        }
+    </script>
+</body>
+</html>

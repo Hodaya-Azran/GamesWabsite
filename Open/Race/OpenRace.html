@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>race</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-size: contain;
+            /*background-color: rgb(233, 250, 251);*/
+        }
+
+        html {
+            background-image: url("images/backSmily.jpg");
+        }
+
+        #base {
+            height: 80%;
+            width: 50%;
+            position: relative;
+            top: 10%;
+            right: 25%;
+            text-align: center;
+            display: inline-block;
+            /*padding-top: 3%;*/
+        }
+
+        #title {
+            font-size: 150%;
+        }
+
+        img {
+            height: 30%;
+        }
+
+        #small {
+            height: 10%;
+            position: relative;
+            right: 7%;
+            bottom: 4%;
+        }
+
+        #medium {
+            height: 8%;
+            width: 13%;
+            float: left;
+            position: relative;
+            top: 20%;
+            background-color: #e63822;
+            display: none;
+        }
+
+            #medium img {
+                height: 80%;
+                position: relative;
+                top: 10%;
+                margin-right: 13%;
+            }
+
+        #side {
+            height: 8%;
+            width: 4%;
+            background-color: #000000;
+            float: left;
+            display: inline-block;
+            position: relative;
+            top: 20%;
+            color: #e53b24;
+            padding-right: 1%;
+            font-size: 400%;
+        }
+
+        #cars {
+            position: relative;
+            height: 36%;
+            animation-name: travel;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes travel {
+            from {
+                right: -110%;
+            }
+
+            to {
+                right: 0%;
+            }
+        }
+
+        @keyframes go {
+            from {
+                right: 0%;
+            }
+
+            to {
+                right: 130%;
+            }
+        }
+        #exit {
+            width: 5%;
+            height: 9.5%;
+            background-color: #c6d0d8;
+            position: absolute;
+            right: 89%;
+            font-size: 256%;
+            top: 83%;
+            text-align: center;
+            padding-top: 0.7%;
+            border-radius: 50%;
+            font-family: 'M008016d';
+            color: #fff;
+            transition: ease 0.6s;
+        }
+
+            #exit:hover {
+                background-color: #fff;
+                color: #c6d0d8;
+                transition: ease 0.6s;
+                border: solid;
+                border-color: #c6d0d8;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <img src="images/rase.png" />
+        <br />
+        <img src="images/ran.png" id="small" />
+        <br />
+        <br />
+        <img src="images/cars.png" id="cars" />
+        <br />
+        <br />
+
+    </div>
+    <div id="side"><</div>
+    <div id="medium">
+        <img src="images/Race_numbers_icons-2.png" />
+    </div>
+    <audio src="sounds/Original-Log-Commercial_The-Ren-and-Stimpy-Show.wav" id="space"></audio>
+    <div id="exit">exit</div>
+    <script>
+        function openSide() {
+            document.getElementById("medium").style.display = "block";
+            document.getElementById("side").innerHTML = ">";
+        }
+
+        function closeSide() {
+            document.getElementById("medium").style.display = "none";
+            document.getElementById("side").innerHTML = "<";
+        }
+
+        function openGame() {
+            document.getElementById("space").play();
+            document.getElementById("cars").style.animationName = "go";
+            setTimeout(goToGame, 1200);
+        }
+
+        function goToGame() {
+            window.location = "GameRace.html";
+        }
+
+        document.getElementById("side").onmouseover = openSide;
+        document.getElementById("side").onmouseout = closeSide;
+        document.getElementById("cars").onclick = openGame;
+        document.getElementById("exit").onclick = function () { window.location = "../Home/Home.html"; };
+    </script>
+</body>
+</html>

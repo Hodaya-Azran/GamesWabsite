@@ -1,0 +1,975 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>race</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-size: contain;
+            /*background-color: rgb(192, 231, 234);*/
+        }
+
+        html {
+            background-image: url("images/backSmily.jpg");
+        }
+
+        #base {
+            height: 100%;
+            width: 100%;
+        }
+
+        .players {
+            width: 100%;
+            height: 49.5%;
+            text-align: center;
+        }
+
+        .cards1, .cards2 {
+            display: inline-block;
+            background-color: rgba(178, 190, 202, 0.62);
+            height: 45%;
+            width: 8%;
+            border-radius: 10px;
+            margin: 0.2%;
+            position: relative;
+            top: 5%;
+            z-index: 2;
+        }
+
+        .cards2 {
+            top: 45%;
+        }
+
+        .specials1 {
+            top: 5% !important;
+        }
+
+        .specials1, .specials2 {
+            height: 35%;
+            width: 6%;
+            margin: 0.2%;
+            background-color: rgba(178, 190, 202, 0.62);
+            display: inline-block;
+            position: relative;
+            top: 55%;
+            border-radius: 10px;
+            /*box-shadow: 0px 0px 6px #F44336;*/
+        }
+
+            .specials1 img, .specials2 img {
+                height: 95%;
+                position: relative;
+                top: 3%;
+            }
+
+        #game {
+            height: 40%;
+            width: 30%;
+            position: relative;
+            bottom: 70%;
+            right: 35%;
+            text-align: center;
+        }
+
+        .piles {
+            display: inline-block;
+            height: 75%;
+            width: 32%;
+            background-color: rgba(178, 190, 202, 0.62);
+            margin-top: 7%;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        #pile1 {
+            right: 1%;
+        }
+
+        #pile2 {
+            left: 1%;
+        }
+
+        .piles img {
+            height: 95%;
+            position: relative;
+            top: 3%;
+        }
+
+        .piles div, .specials1 div, .specials2 div {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background-color: #fff;
+            border-radius: 10px;
+            border: solid;
+            border-width: 1px;
+        }
+
+        #back {
+            position: absolute;
+            bottom: 35%;
+            height: 30%;
+            width: 10%;
+            right: 17%;
+            background-color: #fefffa;
+            text-align: center;
+            border-radius: 20px;
+            border: solid;
+            border-color: #000;
+            border-width: 1px;
+            box-shadow: 4px 7px 1px #464646;
+        }
+
+            #back img {
+                height: 95%;
+                position: relative;
+                top: 3%;
+            }
+
+        #garbage {
+            right: 72%;
+            position: absolute;
+            bottom: 35%;
+            height: 30%;
+            width: 10%;
+            text-align: center;
+        }
+
+            #garbage img {
+                height: 95%;
+                position: relative;
+                top: 3%;
+            }
+
+        .cards1 div, .cards2 div {
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            border: solid;
+            border-width: 1px;
+        }
+
+        .cards1 img, .cards2 img {
+            height: 100%;
+        }
+
+        #spare1, #spare2 {
+            background-color: rgba(178, 190, 202, 0.62);
+            box-shadow: 0px 0px 0px 14px #b2beca;
+            z-index: 1;
+        }
+
+        #beep {
+            volume: 0.2;
+        }
+
+        .point {
+            font-size: 800%;
+            position: absolute;
+            font-family: 'Fb Girafa';
+        }
+
+        #point1 {
+            right: 3%;
+            top: 1%;
+        }
+
+        #point2 {
+            bottom: 6%;
+            right: 3%;
+        }
+
+        #getNames {
+            position: absolute;
+            top: 0%;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            z-index: 2;
+            text-align: center;
+            padding-top: 20%;
+            font-size: 300%;
+        }
+
+        .names {
+            margin-top: 3%;
+            height: 10%;
+            text-align: center;
+            font-size: 50%;
+            color: #0055ab;
+        }
+
+        #start {
+    margin-top: 5%;
+    height: 12%;
+    width: 8%;
+    font-size: 70%;
+    background-color: #fff;
+    border: solid;
+    border-color: #6b6b6b;
+    color: #6d6d6d;
+    border-radius: 50px;
+    font-family: 'M008016d';
+}
+
+            #start:hover {
+                background-color: #334d67;
+                border: none;
+                color: #fff;
+            }
+
+        #nameA {
+            right: 6.5%;
+            top: 19%;
+            font-size: 300%;
+            text-shadow: 0px 0px 6px #ffeb3b;
+        }
+
+        #nameB {
+            right: 6.5%;
+            bottom: 23%;
+            font-size: 300%;
+        }
+
+        #win {
+            height: 100%;
+            width: 101%;
+            background-color: rgba(0, 0, 0, 0.50);
+            position: absolute;
+            top: 0%;
+            z-index: 2;
+            display: none;
+        }
+
+        #theWinner {
+            font-size: 350%;
+            font-family: 'fb girafa';
+        }
+
+        #section {
+            height: 60%;
+            width: 50%;
+            position: relative;
+            right: 20%;
+            top: 25%;
+            background-color: #b2beca;
+            text-align: center;
+            padding: 3%;
+            padding-top: 6%;
+            box-shadow: 0px 0px 0px 7px #fff;
+            border-radius: 15px;
+            transition: ease .6s;
+        }
+
+            #section:hover {
+                box-shadow: 0px 0px 0px 7px #1e364f;
+            }
+
+        #goblet {
+            height: 57%;
+            position: absolute;
+            right: 1%;
+            top: 45%;
+        }
+
+        .quik {
+            font-family: 'Fb liddar';
+            font-size: 250%;
+            margin-top: 3%;
+            display: block;
+        }
+
+        input[type=button] {
+            margin-top: 5%;
+            height: 14%;
+            font-size: 200%;
+            background-color: #fff;
+            border: none;
+            color: #1e364f;
+            font-family: 'fb girafa';
+            transition: ease .6s;
+        }
+
+            #close:hover, input[type=button]:hover {
+                background-color: #1e364f;
+                color: #fff;
+            }
+
+        #again {
+            width: 15%;
+        }
+
+        #exit {
+            width: 10%;
+        }
+
+        #medal {
+            position: absolute;
+            height: 75%;
+            top: 5%;
+            left: -4%;
+            opacity: 0.8;
+        }
+
+        #close {
+            position: absolute;
+            top: 6%;
+            right: 4%;
+            height: 11%;
+            width: 7%;
+            padding-top: 1.5%;
+            font-size: 170%;
+            font-family: arial;
+            border-radius: 50px;
+            background-color: #fff;
+            transition: ease .6s;
+        }
+
+       #light1 {
+    height: 14%;
+    position: relative;
+    left: 10.5%;
+    top: 35%;
+}
+
+
+
+      #light2 {
+    height: 14%;
+    position: relative;
+    left: 10.5%;
+    top: 35%;
+}
+        #exit1 {
+            width: 5%;
+            height: 9.5%;
+            background-color: #c6d0d8;
+            position: absolute;
+            right: 89%;
+            font-size: 212%;
+            top: 83%;
+            text-align: center;
+            padding-top: 0.7%;
+            border-radius: 50%;
+            font-family: 'M008016d';
+            color: #fff;
+            transition: ease 0.6s;
+            
+        }
+
+            #exit1:hover {
+                background-color: #fff;
+                color: #c6d0d8;
+                transition: ease 0.6s;
+                border: solid;
+                border-color: #c6d0d8;
+            }
+        #folow {
+            height: 18%;
+            position: absolute;
+            top: 5%;
+            right: 90%;
+        }
+            #folow:hover {
+                height: 25%;
+                position: absolute;
+                top: 4%;
+                right: 89%;
+                transition: ease 0.6s;
+            }
+        #folow1 {
+            height: 11%;
+            position: absolute;
+            top: 34%;
+            right: 87%;
+        }
+            #folow1:hover {
+                height: 15%;
+                position: absolute;
+                top: 34%;
+                right: 84%;
+                transition: ease 0.6s;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <div class="players" id="player1">
+            <img src="images/onSoft.png" id="light1" data-src="images/onSoft.png" />
+            <label id="nameA" class="point"></label>
+            <label class="point" id="point1">0</label>
+        </div>
+        <div class="players" id="player2">
+            <img src="images/off.png" id="light2" data-src="mages/off.png" />
+            <label id="nameB" class="point"></label>
+            <label class="point" id="point2">0</label>
+        </div>
+        <div id="game">
+            <div class="piles" id="pile2" ondrop="drop(event)" ondragover="overDrag(event)" data-player="2" data-ispossible="0"></div>
+            <div class="piles" id="pile1" ondrop="drop(event)" ondragover="overDrag(event)" data-player="1" data-ispossible="0"></div>
+        </div>
+        <div id="back">
+            <img src="images/גב הקלף.PNG" />
+        </div>
+        <div id="garbage" ondrop="dropGarbage(event)" ondragover="overDrag(event)">
+            <!--<img src="images/גב הקלף.PNG" />-->
+            <img src="images/user-trash.png" />
+        </div>
+    </div>
+    <div id="win">
+        <div id="section">
+            <div id="close" onclick="exit(event)">X</div>
+            <label id="theWinner">המנצח - </label>
+            <img src="images/Untitled-2.png" id="goblet" />
+            <label class="quik" id="quik1">מס' הנקודות של </label>
+            <label class="quik" id="quik2">מס' הנקודות של </label>
+            <input type="button" id="again" value="שחק שוב" onclick="again(event)" />
+            <input type="button" id="exit" value="יציאה" onclick="exit(event)" />
+            <img src="images/מדליה%20בהיר.png" id="medal" />
+        </div>
+    </div>
+    <div id="getNames">
+        <label id="instruction">הכניסו את שמות השחקנים - </label>
+        <br />
+        <input type="text" placeholder="שחקן 1" class="names" id="name1" />
+        <input type="text" placeholder="שחקן 2" class="names" id="name2" />
+        <br />
+        <input type="button" value="start" id="start" title="התחל" />
+    </div>
+    <audio src="sounds/itemland4.wav" id="itemland"></audio>
+    <audio src="sounds/Blaster.wav" id="blaster"></audio>
+    <audio src="sounds/Lamp-Switch_Off.mp3" id="switch"></audio>
+    <audio src="sounds/Flash%20Button%20Sounds-13485-Free-Loops.com.mp3" id="flash"></audio>
+    <div id="exit1">exit</div>
+    <a target="_blank" href="images/הוראות.PNG"><img src="images/הוראות.PNG" id="folow" /></a>
+
+    <a target="_blank" href="images/סקיצה.jpg"><img src="images/סקיצה.jpg" id="folow1" /></a>
+
+    <script>
+        var cards = [
+            "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG",
+            "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG", "Cards/25.PNG",
+            "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG",
+            "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG", "Cards/50.PNG",
+            "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG",
+            "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG", "Cards/75.PNG",
+            "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG",
+            "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG", "Cards/100.PNG",
+            "cards/210.PNG", "cards/210.PNG", "cards/210.PNG", "cards/210.PNG",
+            "Cards/רמזור אדום.PNG", "Cards/רמזור אדום.PNG", "Cards/רמזור אדום.PNG",
+            "Cards/רמזור אדום.PNG", "Cards/רמזור אדום.PNG", "Cards/רמזור אדום.PNG",
+            "Cards/מהירות מוגבלת.PNG", "Cards/מהירות מוגבלת.PNG",
+            "Cards/תדלוק.PNG", "Cards/תדלוק.PNG",
+            "Cards/פנצ'ר.PNG", "Cards/פנצ'ר.PNG",
+            "Cards/שוטר.PNG", "Cards/שוטר.PNG",
+            "Cards/תאונה.PNG", "Cards/תאונה.PNG",
+            "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG",
+            "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG",
+            "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG",
+            "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG", "Cards/רמזור ירוק.PNG",
+            "Cards/שטח פתוח.PNG", "Cards/שטח פתוח.PNG", "Cards/שטח פתוח.PNG",
+            "Cards/שטח פתוח.PNG", "Cards/שטח פתוח.PNG", "Cards/שטח פתוח.PNG",
+            "Cards/תחנת דלק.PNG", "Cards/תחנת דלק.PNG", "Cards/תחנת דלק.PNG",
+            "Cards/תחנת דלק.PNG", "Cards/תחנת דלק.PNG", "Cards/תחנת דלק.PNG",
+            "Cards/גלגל רזרבי.PNG", "Cards/גלגל רזרבי.PNG", "Cards/גלגל רזרבי.PNG",
+            "Cards/גלגל רזרבי.PNG", "Cards/גלגל רזרבי.PNG", "Cards/גלגל רזרבי.PNG",
+            "Cards/הקנס שולם.PNG", "Cards/הקנס שולם.PNG", "Cards/הקנס שולם.PNG", "Cards/הקנס שולם.PNG",
+            "Cards/דרך צלחה.PNG", "Cards/דרך צלחה.PNG", "Cards/דרך צלחה.PNG",
+            "Cards/דרך צלחה.PNG", "Cards/דרך צלחה.PNG", "Cards/דרך צלחה.PNG",
+            "Cards/אמבולנס.PNG", "Cards/אמבולנס.PNG",
+            "Cards/משאית.PNG", "Cards/משאית.PNG",
+            "Cards/נהג זהיר.PNG", "Cards/נהג זהיר.PNG"
+        ];
+        var queue = 1;
+        var cashBox = [];
+        var opens = []
+        var opens1 = [];
+        var opens2 = [];
+        var card;
+        var place;
+        var empty = 0;
+        var garbage = []
+        var block = [0, "Cards/רמזור אדום.PNG", "Cards/רמזור אדום.PNG"];
+        var blocks = ["Cards/רמזור אדום.PNG", "Cards/מהירות מוגבלת.PNG", "Cards/תדלוק.PNG", "Cards/פנצ'ר.PNG", "Cards/שוטר.PNG", "Cards/תאונה.PNG"];
+        var solutions = ["Cards/רמזור ירוק.PNG", "Cards/שטח פתוח.PNG", "Cards/תחנת דלק.PNG", "Cards/גלגל רזרבי.PNG", "Cards/הקנס שולם.PNG", "Cards/דרך צלחה.PNG"];
+        var isTwoHundred = [0, 0];
+        var protected_ = [[0, 0, 0], [0, 0, 0]];
+        var counter = [0, 0];
+        var lighter = "images/onSoft.png";
+        var offer = "images/off.png";
+
+        function createBoard() {
+            createSpecials(1);
+            createCards(1);
+            createCards(2);
+            createSpecials(2);
+        }
+
+        function createSpecials(player) {
+            for (var i = 0; i < 3; i++) {
+                var div = document.createElement("div");
+                div.className = "specials" + player;
+                div.setAttribute("data-type", "blue");
+                div.setAttribute("data-player", player);
+                div.ondrop = drop;
+                div.ondragover = overDrag;
+                div.draggable = false;
+                document.getElementById("player" + player).appendChild(div);
+            }
+        }
+
+        function createCards(player) {
+            for (var i = 0; i < 6; i++) {
+                var div = document.createElement("div");
+                div.className = "cards" + player;
+                if (player == 1 && i == 5) {
+                    div.id = "spare1";
+                }
+                else if (player == 2 && i == 0) {
+                    div.id = "spare2";
+                }
+                else {
+                    div.id = "place" + player + i;
+                }
+                document.getElementById("player" + player).appendChild(div);
+            }
+        }
+
+        function RandomCards() {
+            for (var i = 0; i < cards.length; i++) {
+                do {
+                    var place = Math.round(Math.random() * 1000) % cards.length;
+                } while (cashBox.indexOf(place) > -1);
+                cashBox.push(place);
+            }
+        }
+
+        function openCards() {
+            for (var i = 0; i < 5; i++) {
+                opens1.push(cashBox[i]);
+                opens2.push(cashBox[i + 5]);
+            }
+            for (var i = 0; i < 10; i++) {
+                opens.push(cashBox[i]);
+            }
+            clear(10);
+        }
+
+        var boxShadow = 13;
+
+        function clear(number) {
+            cashBox.reverse();
+            for (var i = 0; i < number; i++) {
+                cashBox.pop();
+            }
+            cashBox.reverse();
+            if (cashBox.length == 0) {
+                
+                if (counter[0] + counter[1] == 3400) {
+                    setTimeout(win, 1000);
+                }
+                else {
+                    var length_ = garbage.length;
+                    for (var i = 0; i < length_; i++) {
+                        cashBox.push(garbage.pop());
+                    }
+                    var img = document.createElement("img");
+                    img.src = "images/user-trash.png";
+                    document.getElementById("garbage").innerHTML = "";
+                    document.getElementById("garbage").appendChild(img);
+                    boxShadow = 13;
+                    document.getElementById("back").style.boxShadow = boxShadow + "px " + boxShadow-- + "px 1px #464646";/*-----------------------*/
+                }
+            }
+            if (cashBox.length % 10 == 0) {/*-------------------------------*/
+                document.getElementById("back").style.boxShadow = boxShadow + "px " + boxShadow-- + "px 1px #464646";/*---------------------------*/
+            }
+        }
+
+        function win(){
+            document.getElementById("win").style.display = "block";
+            counter[0] > counter[1] ? winner = document.getElementById("nameA").innerHTML : winner = document.getElementById("nameB").innerHTML;
+            if (counter[0] == counter[1]) {
+                document.getElementById("theWinner") += "שני השחקנים :)";
+            }
+            document.getElementById("theWinner").innerHTML += winner;
+            document.getElementById("quik1").innerHTML += document.getElementById("nameA").innerHTML + " - " + counter[0];
+            document.getElementById("quik2").innerHTML += document.getElementById("nameB").innerHTML + " - " + counter[1];
+        }
+
+        function showCards() {
+            for (var i = 1; i < 3; i++) {
+                //set = setInterval(append_, 1000);
+                for (var j = 0; j < opens1.length; j++) {
+                    //setTimeout(append_(i, j), 1000);
+                    var div = document.createElement("div");
+                    div.draggable = true;
+                    div.ondragstart = startDrag;
+                    var img = document.createElement("img");
+                    img.draggable = false;
+                    div.appendChild(img);
+                    div.setAttribute("data-player", i);
+                    if (i == 1) {
+                        document.getElementById("place" + i + "" + j).appendChild(div);
+                        div.setAttribute("data-src", cards[opens[j]]);
+                        div.setAttribute("data-placing", opens[j]);
+                        img.src = cards[opens[j]];
+                        addAttribute(opens[j], div);
+                    }
+                    else if (i == 2) {
+                        document.getElementById("place" + i + "" + (j + 1)).appendChild(div);
+                        div.setAttribute("data-src", cards[opens[j + 5]]);
+                        img.src = cards[opens[j + 5]];
+                        addAttribute(opens[j + 5], div);
+                    }
+                }
+            }
+            fill();
+        }
+        var clearTwo = 0;
+        function startDrag() {
+            card = event.target;
+        }
+
+        function append_() {
+            document.getElementById("j").innerHTML+="b";
+        }
+
+        function drop(event) {
+            place = event.currentTarget;
+            if (checkIsPossible() == 1 && checkMatching() == 1) {
+                document.getElementById("itemland").play();
+                if (card.getAttribute("data-name") == "200") {
+                    isTwoHundred[queue - 1] = 1;
+                    clearTwo = queue;
+                }
+                else {
+                    if (clearTwo != 0) {
+                        isTwoHundred[clearTwo - 1] = 0;
+                        clearTwo = 0;
+                    }
+                }
+                if (card.getAttribute("data-type") == "blue") {
+                    document.getElementById("itemland").pause();
+                    document.getElementById("blaster").play();
+                    if (card.getAttribute("data-name") == "ambulance")
+                        protected_[queue - 1][0] = 1;
+                    else if (card.getAttribute("data-name") == "truck")
+                        protected_[queue - 1][1] = 1;
+                    else if (card.getAttribute("data-name") == "carefulDriver")
+                        protected_[queue - 1][2] = 1;
+                }
+                if (card.getAttribute("data-type") == "yellow") {
+                    counter[queue - 1] += parseInt(card.getAttribute("data-name"));
+                    document.getElementById("point" + queue).innerHTML = counter[queue - 1];
+                    if (counter[0] + counter[1] == 3400) {
+                        setTimeout(win, 1000);
+                    }
+                }
+                event.preventDefault();
+                event.currentTarget.appendChild(card);
+                checkEmpty();
+                fix();
+                if (queue == 1) {
+                    queue = 2;
+                }
+                else
+                    queue = 1;
+                document.getElementById("light1").src == "http://localhost:49168/Race/" + lighter ? document.getElementById("light1").src = offer : document.getElementById("light1").src = lighter;
+                document.getElementById("light2").src == "http://localhost:49168/Race/" + lighter ? document.getElementById("light2").src = offer : document.getElementById("light2").src = lighter;
+                setTimeout(fill, 200);
+            }
+            else {
+                document.getElementById("flash").play();
+            }
+        }
+
+        function overDrag() {
+            event.preventDefault();
+        }
+
+        function checkMatching() {
+            var color = card.getAttribute("data-type");
+            //אם מכניס קלף צהוב לקופה שלו
+            if (place.getAttribute("data-player") == card.getAttribute("data-player") && color != "red" && color != "blue" && color != "green" && place.getAttribute("data-type") != "blue") {
+                if (card.getAttribute("data-name") == "200" && protected_[queue - 1][2] == 1)
+                    return 0;
+                return 1;
+            }
+            else if (place.getAttribute("data-player") == card.getAttribute("data-player") && color == "green" && solutions[blocks.indexOf(block[place.getAttribute("data-player")])] == card.getAttribute("data-src")) {
+                block[queue] = 0;
+                return 1;
+            }
+                //אם מכניס קלף אדום לקופה של היריב
+            else if (place.getAttribute("data-player") != card.getAttribute("data-player") && color == "red" && document.getElementById("pile" + queue).innerHTML != "") {
+                if (card.getAttribute("data-name") == "policeMan" && isTwoHundred[place.getAttribute("data-player") - 1] == 0) {
+                    return 0;
+                }
+                if (isprotected_() == 0) {
+                    return 0;
+                }
+                place.setAttribute("data-isPossible", 0);
+                block[place.getAttribute("data-player")] = card.getAttribute("data-src");
+                //מהירות מוגבלת/*--------------------------------------*/
+                if (card.getAttribute("data-name") == "limitedSpeed") {
+                    document.getElementById("fifty" + queue).style.display = "block";
+                }/*------------------------*/
+                return 1;
+            }
+                //אם מכניס קלף כחול למקום של הקלפים המיוחדים שלו
+            else if (place.getAttribute("data-player") == card.getAttribute("data-player") && color == "blue" && place.getAttribute("data-type") == "blue" && document.getElementById("pile" + queue).innerHTML != "") {
+                return 1;
+            }
+            return 0;
+        }
+
+        function checkIsPossible() {
+            //בודק אם זה לא התור שלו
+            if (card.getAttribute("data-player") != queue) {
+                return 0;
+            }
+            //בודק אם המשבצת חסומה
+            if (place.getAttribute("data-isPossible") == 1) {
+                return 1;
+            }
+                //אם חסום בודק אם ניסה להכניס קלף פתרון מתאים
+            else if (solutions[blocks.indexOf(block[place.getAttribute("data-player")])] == card.getAttribute("data-src") || (block[place.getAttribute("data-player")] == "Cards/מהירות מוגבלת.PNG" && (card.getAttribute("data-name") == "25" || card.getAttribute("data-name") == "50"))) {
+                if (solutions[blocks.indexOf(block[place.getAttribute("data-player")])] == card.getAttribute("data-src")) {
+                    place.setAttribute("data-isPossible", 1);
+                }
+                if (card.getAttribute("data-name") == "openArea") {/*---------------------------*/
+                    queue == 1 ? document.getElementById("fifty" + 2).style.display = "none" : document.getElementById("fifty" + 1).style.display = "none";
+                }/*-------*/
+                return 1;
+            }
+                //אם ניסה להכניס למקום של הקלפים המיוחדים
+            else if (place.getAttribute("data-type") == "blue") {
+                if ((card.getAttribute("data-name") == "ambulance" && protected_[queue - 1][0] == 1) || (card.getAttribute("data-name") == "truck" && protected_[queue - 1][1] == 1) || (card.getAttribute("data-name") == "carefulDriver" && protected_[queue - 1][2] == 1)) {
+                    return 0;
+                }
+                return 1;
+            }
+            return 0;
+        }
+
+        function isprotected_() {
+            if (card.getAttribute("data-name") == "redLight" || card.getAttribute("data-name") == "limitedSpeed") {
+                if (queue == 1 && protected_[1][0] == 1 || queue == 2 && protected_[0][0] == 1) {
+                    return 0;
+                }
+            }
+            else if (card.getAttribute("data-name") == "exhaustedGas") {
+                if (queue == 1 && protected_[1][1] == 1 || queue == 2 && protected_[0][1] == 1) {
+                    return 0;
+                }
+            }
+            else if (card.getAttribute("data-name") == "accident") {
+                if (queue == 1 && protected_[1][2] == 1 || queue == 2 && protected_[0][2] == 1) {
+                    return 0;
+                }
+            }
+            return 1;
+        }
+
+        function fill() {
+            if (cashBox.length > 0) {
+                var div = document.createElement("div");
+                div.draggable = true;
+                div.id = "inSpare";
+                div.ondragstart = startDrag;
+                div.setAttribute("data-placing", cashBox[0]);
+                div.setAttribute("data-src", cards[cashBox[0]]);
+                div.setAttribute("data-player", queue);
+                addAttribute(cashBox[0], div);
+                var img = document.createElement("img");
+                img.draggable = false;
+                img.src = cards[cashBox[0]];
+                div.appendChild(img);
+                document.getElementById("spare" + queue).appendChild(div);
+                clear(1);
+                if (cashBox.length < 0) {
+
+                }
+            }
+        }
+
+        function checkEmpty() {
+            empty = 0;
+            for (var i = 0; i < 5; i++) {
+                if (queue == 1) {
+                    if (document.getElementById("place" + queue + i).innerHTML == "") {
+                        empty = "place" + queue + i;
+                    }
+                }
+                else if (queue == 2) {
+                    if (document.getElementById("place" + queue + (i + 1)).innerHTML == "") {
+                        empty = "place" + queue + (i + 1);
+                    }
+                }
+            }
+        }
+
+        function fix() {
+            if (empty != 0 && document.getElementById("inSpare") != "undefined" && cashBox.length > 0) {
+                document.getElementById(empty).appendChild(document.getElementById("inSpare"));
+                document.getElementById("inSpare").id = "null";
+            }
+        }
+
+        function addAttribute(img, div) {
+            if (img >= 0 && img <= 45) {
+                div.setAttribute("data-type", "yellow");
+                if (img >= 0 && img <= 9) {
+                    div.setAttribute("data-name", 25);
+                }
+                else if (img >= 10 && img <= 21) {
+                    div.setAttribute("data-name", 50);
+                }
+                else if (img >= 22 && img <= 31) {
+                    div.setAttribute("data-name", 75);
+                }
+                else if (img >= 32 && img <= 41) {
+                    div.setAttribute("data-name", 100);
+                }
+                else if (img >= 42 && img <= 45) {
+                    div.setAttribute("data-name", 200);
+                }
+            }
+            else if (img >= 46 && img <= 61) {
+                div.setAttribute("data-type", "red");
+                if (img >= 46 && img <= 51) {
+                    div.setAttribute("data-name", "redLight");
+                }
+                else if (img >= 52 && img <= 53) {
+                    div.setAttribute("data-name", "limitedSpeed");
+                }
+                else if (img >= 54 && img <= 55) {
+                    div.setAttribute("data-name", "exhaustedGas");
+                }
+                else if (img >= 56 && img <= 57) {
+                    div.setAttribute("data-name", "puncture");
+                }
+                else if (img >= 58 && img <= 59) {
+                    div.setAttribute("data-name", "policeMan");
+                }
+                else if (img >= 60 && img <= 61) {
+                    div.setAttribute("data-name", "accident");
+                }
+            }
+            else if (img >= 62 && img <= 103) {
+                div.setAttribute("data-type", "green");
+                if (img >= 62 && img <= 75) {
+                    div.setAttribute("data-name", "greenLight");
+                }
+                else if (img >= 76 && img <= 81) {
+                    div.setAttribute("data-name", "openArea");
+                }
+                else if (img >= 82 && img <= 87) {
+                    div.setAttribute("data-name", " gasStation");
+                }
+                else if (img >= 88 && img <= 93) {
+                    div.setAttribute("data-name", "spareWheel");
+                }
+                else if (img >= 94 && img <= 97) {
+                    div.setAttribute("data-name", "paidFine");
+                }
+                else if (img >= 98 && img <= 103) {
+                    div.setAttribute("data-name", "Godspeed");
+                }
+            }
+            else if (img >= 104 && img <= 109) {
+                div.setAttribute("data-type", "blue");
+                if (img >= 104 && img <= 105) {
+                    div.setAttribute("data-name", "ambulance");
+                }
+                else if (img >= 106 && img <= 107) {
+                    div.setAttribute("data-name", "truck");
+                }
+                else if (img >= 108 && img <= 109) {
+                    div.setAttribute("data-name", "carefulDriver");
+                }
+            }
+        }
+
+        function dropGarbage() {
+            if (card.getAttribute("data-player") == queue) {
+                document.getElementById("switch").play();
+                event.preventDefault();
+                event.currentTarget.appendChild(card);
+                garbage.push(card.getAttribute("data-placing"));
+                card.style.display = "none";
+                if (event.target.src != "images/user-trash-full.png") {
+                    event.target.src = "images/user-trash-full.png";
+                }
+                checkEmpty();
+                fix();
+                if (queue == 1) {
+                    queue = 2;
+                }
+                else
+                    queue = 1;
+                document.getElementById("light1").src == "http://localhost:49168/Race/" + lighter ? document.getElementById("light1").src = offer : document.getElementById("light1").src = lighter;
+                document.getElementById("light2").src == "http://localhost:49168/Race/" + lighter ? document.getElementById("light2").src = offer : document.getElementById("light2").src = lighter;
+                fill();
+            }
+            else {
+                document.getElementById("flash").play();
+            }
+        }
+
+        function light() {
+            document.getElementById("player" + queue).style.background = "#f2fcfe";
+        }
+
+        document.getElementById("start").onclick = function () {
+            document.getElementById("name1").value == "" ? sessionStorage.setItem("p1", document.getElementById("name1").placeholder)
+                : sessionStorage.setItem("p1", document.getElementById("name1").value);
+            document.getElementById("name2").value == "" ? sessionStorage.setItem("p2", document.getElementById("name2").placeholder)
+                : sessionStorage.setItem("p2", document.getElementById("name2").value);
+            document.getElementById("getNames").style.display = "none";
+            document.getElementById("nameA").innerHTML = sessionStorage.getItem("p1");
+            document.getElementById("nameB").innerHTML = sessionStorage.getItem("p2");
+            RandomCards();
+            openCards();
+            showCards();
+        }
+
+        function exit(event){
+            window.location = "../Home/Games.html";
+        }
+
+        function again(event) {
+            window.location = "GameRace.html";
+        }
+        document.getElementById("exit1").onclick = function () { window.location = "../Home/Games.html"; };
+        createBoard();
+
+        //document.getElementById("folow").onclick = function () { window.location = "../Home/Games.html"; };
+
+        //לפעמים אחרי ששחקן אחד מימש את התור שלו - מוסיף 2 קלפים לשחקן השני
+        //(לפעמים לא נותן להכניס קלפים כחולים(נראה לי שאחרי שהבעיה הקודמת נוצרת
+        //צריך להתריע על מהירות מוגבלת
+        //לסמן את הצד של השחקן שהתור שלו
+        //לסדר פח-------------------
+        //לעשות שהקלפים נגמרים בקופה
+        //לאפשר ערבוב של הקלפים שבפח כשהקופה נגמרת ולשים אותם כקופה
+        //לסכות את קלפי המהירות ששמים השחקנים ולהציג על המסך
+        //לבדוק מי ניצח ולעצב סוף משחק
+        //לזהות שהמשחק הסתיים - כשקלפי המהירות אוזלים
+    </script>
+</body>
+</html>

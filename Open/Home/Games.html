@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>colorfull</title>
+    <style>
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        #base {
+            height: 90%;
+            width: 70%;
+            position: relative;
+            right: 15%;
+            top: 5%;
+            text-align: center;
+        }
+
+        img {
+            height: 45%;
+            margin: 1%;
+            box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.14);
+            transition: all .8s ease;
+        }
+
+        img:hover {
+                transform: scale(1.05);
+
+            }
+
+        #back {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    height: 8%;
+    width: 4%;
+    background-color: #000;
+    border-radius: 50%;
+    font-size: 257%;
+    color: #fff;
+    text-align: center;
+    padding-top: 0.3%;
+}
+            #back img {
+                height: 50%;
+                position: absolute;
+                left: 27%;
+                bottom: 31%;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <a href="../Bridges/menu.html"><img src="images/bridges2.jpg" /></a>
+        <a href="../Ice/IceOpen.html"><img src="images/ice2.jpg" /></a>
+        <br />
+        <a href="../Balls/GameBalls.html"><!--<img src="images/balls.jpg" />--><img src="images/balls2W.jpg" /></a>
+        <a href="../Race/OpenRace.html">
+            <img src="images/raceBig.jpg" /></a>
+    </div>
+    <div id="back" ><</div>
+    <script>
+        document.getElementById("back").onclick = function () { window.location = "Home.html"; }
+    </script>
+</body>
+</html>

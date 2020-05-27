@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>colorfull</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #base {
+            height: 87%;
+            width: 90%;
+            position: relative;
+            top: 5%;
+            right: 5%;
+            text-align: center;
+        }
+
+        #logo {
+            height: 25%;
+        }
+
+        #slogen {
+            font-family: M008016d;
+            font-size: 200%;
+            position: relative;
+            top: 9%;
+        }
+
+        #section {
+            height: 80%;
+            width: 50%;
+            position: absolute;
+            right: 25%;
+            bottom: -8%;
+            text-align: right;
+            font-family: 'Fb Extaza';
+            font-size: 130%;
+            text-align: center;
+        }
+
+        .english {
+            font-family: M008016d;
+        }
+
+        #full {
+            font-family: 'Bernard MT Condensed';
+        }
+
+        .hebrew {
+            font-family: inherit;
+            margin-block-end: 1.4em;
+            margin-block-start: 0.2em;
+        }
+
+        #exit {
+    right: 78%;
+    bottom: 11%;
+    height: 8%;
+    width: 3.9%;
+    background-color: #fff;
+    border: solid;
+    border-color: #fedd02;
+    border-radius: 50px;
+    font-family: 'M008016d';
+    font-size: 193%;
+    transition: ease .6s;
+    position: absolute;
+}
+
+            #exit:hover {
+                background-color: #fedd02;
+                border: #fff;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <label id="slogen">The life is not black and white</label>
+        <img src="images/logo.png" id="logo" />
+        <div id="section">
+            <p class="hebrew">
+                האתר מיועד לאתגרים מחשבתיים באמצעות משחק, לפיתוח מיומנויות מטוריות וחשיבתיות,
+                מתוך מטרה להקנות למשחק חווית לימוד חושית, מוטורית וחשיבתית.
+            </p>
+            <p class="hebrew">
+                המגוון הרחב של המשחקים שמציע האתר מתמקד במיומנויות השונות ומחולק לרמות קושי מגוונות, החל מרמות בסיסיות ועד לרמת מיומנות גבוהה,
+                כשהאתר צועד יד ביד עם המשחק לפיתוח המיומנות האישית של המשחק.
+            </p>
+            <p class="hebrew">
+                כחלק מתחושת השליחות שלנו ומתוך מטרה להעמיק את מטרותיו של האתר, צוות colorfull
+                יעמוד לשירותכם. לתגובות והערות כמו גם למתן הצעות, להמשך פיתוח האתר, נשמח לעמוד לשירותכם בטופס המקוון "צור קשר"
+            </p>
+            <p class="hebrew">
+                כמו"כ הנכם מוזמנים לדרג אותנו כדי שנוכל לשפר את חווית המשתמש
+            </p>
+        </div>
+    </div>
+    <input type="button" value="exit" title="חזור לדף הבית" id="exit" onclick="exit(event)" />
+    <script>
+        function exit(event) {
+            window.location = "Home.html";
+        }
+    </script>
+</body>
+</html>

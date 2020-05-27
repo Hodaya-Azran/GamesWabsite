@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>colorfull - Ice</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+        #base {
+            height: 85%;
+            width: 50%;
+            position: relative;
+            right: 25%;
+            top: 5%;
+            /*background-color: #202020;*/
+            font-family: M008016d;
+            text-align: center;
+            font-size: 300%;
+        }
+
+        #ice {
+            height: 70%;
+            z-index: 2;
+            position: relative;
+            top: 3%;
+        }
+
+        #penguin {
+            position: relative;
+            bottom: 69%;
+            right: 3%;
+            height: 20%;
+        }
+
+        #play {
+            position: relative;
+            bottom: 15%;
+            height: 13%;
+        }
+
+       #exit {
+    height: 11%;
+    width: 11%;
+    position: relative;
+    bottom: 15%;
+    left: 2%;
+    border-radius: 50px;
+    border: solid;
+    border-color: #ffbc00;
+    background-color: #fff;
+    color: #ffbc00;
+    font-family: M008016d;
+    font-size: 83%;
+    transition: ease .6s;
+}
+
+            #exit:hover {
+                background-color: #ffbc00;
+                border: none;
+                color: #fff;
+            }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="base">
+        <img src="imagesOpen/ice_PNG36838.png" id="ice"/>
+        <img src="imagesOpen/tux_paint.png" id="penguin"/>
+        <br />
+        <input type="button" value="exit" id="exit" />
+        <img src="imagesOpen/exaile-6.png" id="play"/>
+    </div>
+    <script>
+
+        document.getElementById("play").onclick = function () {
+            window.location = "IceGame.html";
+        }
+
+        document.getElementById("exit").onclick = function () {
+            window.location = "../Home/Games.html";
+        }
+    </script>
+</body>
+</html>

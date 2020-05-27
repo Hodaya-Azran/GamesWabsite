@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Catch the Balls</title>
+    <style>
+        @font-face {
+            font-family: 'M008016d';
+            src: url('../font/M008016d.ttf') format('truetype');
+        }
+
+        * {
+            vertical-align: top;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            background-size: contain;
+            font-family: 'M008016d';
+            position: absolute;
+            top: -0.55%;
+        }
+
+        html {
+            background-image: url("images/פרקט-לבן-1.jpg");
+        }
+
+        #base {
+            width: 45%;
+            height: 60%;
+            position: relative;
+            right: 12%;
+            top: 20%;
+            background-color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            color: #E91E63;
+            padding-top: 5%;
+            display: inline-block;
+            font-family: 'M008016d';
+        }
+
+       .option {
+    height: 18%;
+    width: 38%;
+    border: solid;
+    border-radius: 50px;
+    border-color: #4b4b4b;
+    position: relative;
+    right: 30%;
+    top: 7%;
+    margin-bottom: 3%;
+    font-size: 224%;
+    color: #4b4b4b;
+    transition: ease .4s;
+    padding-top: 1%;
+}
+
+            .option:hover {
+                border-color: #E91E63;
+                background-color: #E91E63;
+                color: #fff;
+            }
+
+        #title {
+            font-size: 400%;
+            font-family: Impact;
+        }
+
+        #mark {
+            height: 60%;
+            width: 20%;
+            font-size: 350%;
+            position: relative;
+            right: 10%;
+            top: 20%;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding-top: 8%;
+            color: #E91E63;
+            font-family: 'M008016d';
+        }
+
+            #mark label {
+                display: block;
+                margin-bottom: 5%;
+                font-family: Impact;
+                font-size: 60%;
+            }
+
+        #balloon {
+            height: 70%;
+            visibility: hidden;
+            position: relative;
+            bottom: 0%;
+            right: 0%;
+            animation-name: falling;
+            animation-duration: 3s;
+            transition: cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        @keyframes falling {
+            from {
+                bottom: 71%;
+            }
+
+            to {
+                bottom: 0%;
+            }
+        }
+
+      
+        #pass {
+            position: relative;
+            height: 75%;
+            bottom: 85%;
+            right: 0%;
+            /*animation-name: passing;*/
+            animation-duration: 3s;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes passing {
+            from {
+                bottom: -100%;
+            }
+
+            to {
+                bottom: 85%;
+            }
+        }
+        #smaili {
+            height: 26%;
+            position: absolute;
+            top: 61%;
+            right: 17%;
+            display:none;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <div id="mark">
+        <label id="first">points: </label>
+        <label id="second">balls: </label>
+        <label id="third">bombs: </label>
+        <img src="images/smiley_PNG179.png" id="smaili" />
+    </div>
+    <div id="base">
+        <label id="title">Game Over</label>
+        <div class="option" id="again">play again</div>
+        <div class="option" id="exit">exit</div>
+    </div>
+    <!--<img src="images/balloon_PNG3399.png" id="balloon" />-->
+    <img src="images/balloon_PNG4965.png" id="pass" />
+    <audio src="../audio/Original-Log-Commercial_The-Ren-and-Stimpy-Show.wav" id="winner"></audio>
+    <script>
+        //sessionStorage.setItem("points", 2000);
+        function getMark() {
+            if (sessionStorage.getItem("points") == undefined) {
+                sessionStorage.setItem("points", 0);
+                sessionStorage.setItem("balls", 0);
+                sessionStorage.setItem("bombs", 0);
+            }
+            document.getElementById("first").innerHTML += sessionStorage.getItem("points");
+            document.getElementById("second").innerHTML += sessionStorage.getItem("balls");
+            if (sessionStorage.getItem("bombs") != 5) {
+                document.getElementById("third").innerHTML += sessionStorage.getItem("bombs");
+            }
+            else {
+                document.getElementById("third").style.display = "none";
+            }
+            if (parseInt(sessionStorage.getItem("points")) == 2000) {
+                document.getElementById("winner").play();
+                document.getElementById("pass").style.animationName = "passing";
+                document.getElementById("smaili").style.display = "block";
+                //document.getElementById("balloon").style.display = "inline-block";
+            }
+        }
+        document.getElementById("again").onclick = function () {
+            window.location = "GameBalls.html";
+        }
+
+        document.getElementById("exit").onclick = function () {
+            window.location = "../Home/Games.html";
+        }
+
+        getMark();
+    </script>
+</body>
+</html>
